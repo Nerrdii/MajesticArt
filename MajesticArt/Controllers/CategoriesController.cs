@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
-using MajesticArt.Data.DataTransferObjects;
+﻿using System.Threading.Tasks;
 using MajesticArt.Models;
 using MajesticArt.Services;
-using MajesticArt.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MajesticArt.Controllers
@@ -13,12 +9,10 @@ namespace MajesticArt.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly IMapper mapper;
         private readonly ICategoryService categoryService;
 
-        public CategoriesController(IMapper mapper, ICategoryService categoryService)
+        public CategoriesController(ICategoryService categoryService)
         {
-            this.mapper = mapper;
             this.categoryService = categoryService;
         }
 
@@ -26,8 +20,7 @@ namespace MajesticArt.Controllers
         public async Task<IActionResult> GetAll()
         {
             var categories = await categoryService.GetAll();
-            var categoryViewModels = mapper.Map<CategoryViewModel[]>(categories);
-            return Ok(categoryViewModels);
+            return Ok(categories);
         }
 
         [HttpGet("{id}")]
@@ -40,31 +33,23 @@ namespace MajesticArt.Controllers
                 return NotFound();
             }
 
-            var categoryViewModel = mapper.Map<CategoryViewModel>(category);
-
-            return Ok(categoryViewModel);
+            return Ok(category);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody]CategoryDTO categoryDto)
+        public async Task<IActionResult> Add([FromBody]Category category)
         {
-            var category = mapper.Map<Category>(categoryDto);
-            var created = await categoryService.Add(category);
+            await categoryService.Add(category);
 
-            var categoryViewModel = mapper.Map<CategoryViewModel>(created);
-
-            return CreatedAtAction(nameof(Get), new { id = categoryViewModel.Id }, categoryViewModel);
+            return CreatedAtAction(nameof(Get), new { id = category.Id }, category);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody]CategoryDTO categoryDto)
+        public async Task<IActionResult> Update([FromBody]Category category)
         {
-            var category = mapper.Map<Category>(categoryDto);
-            var updated = await categoryService.Update(category);
+            await categoryService.Update(category);
 
-            var categoryViewModel = mapper.Map<CategoryViewModel>(updated);
-
-            return Ok(categoryViewModel);
+            return Ok(category);
         }
 
         [HttpDelete("{id}")]
