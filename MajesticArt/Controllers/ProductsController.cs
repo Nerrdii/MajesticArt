@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using MajesticArt.Data.DataTransferObjects;
+﻿using System.Threading.Tasks;
 using MajesticArt.Models;
 using MajesticArt.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MajesticArt.Controllers
@@ -15,12 +9,10 @@ namespace MajesticArt.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IMapper mapper;
         private readonly IProductService productService;
 
-        public ProductsController(IMapper mapper, IProductService productService)
+        public ProductsController(IProductService productService)
         {
-            this.mapper = mapper;
             this.productService = productService;
         }
 
@@ -28,8 +20,7 @@ namespace MajesticArt.Controllers
         public async Task<IActionResult> GetAll()
         {
             var products = await productService.GetAll();
-            var productViewModels = mapper.Map<ProductDTO[]>(products);
-            return Ok(productViewModels);
+            return Ok(products);
         }
 
         [HttpGet("{id}")]
@@ -42,19 +33,38 @@ namespace MajesticArt.Controllers
                 return NotFound();
             }
 
-            var productViewModel = mapper.Map<ProductDTO>(product);
-
-            return Ok(productViewModel);
+            return Ok(product);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody]ProductDTO productDto)
+        public async Task<IActionResult> Add([FromBody]Product product)
         {
-            var created = await productService.Add(productDto);
+            var created = await productService.Add(product);
 
-            var productViewModel = mapper.Map<ProductDTO>(created);
+            return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
+        }
 
-            return CreatedAtAction(nameof(Get), new { id = productViewModel.Id }, productViewModel);
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody]Product product)
+        {
+            await productService.Update(product);
+
+            return Ok(product);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await productService.Get(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            await productService.Delete(id);
+
+            return NoContent();
         }
     }
 }

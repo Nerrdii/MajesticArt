@@ -1,10 +1,7 @@
 ﻿using MajesticArt.Data;
-using MajesticArt.Data.DataTransferObjects;
 using MajesticArt.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MajesticArt.Services
@@ -18,17 +15,8 @@ namespace MajesticArt.Services
             this.context = context;
         }
 
-        public async Task<Product> Add(ProductDTO productDto)
+        public async Task<Product> Add(Product product)
         {
-            var category = await context.Categories.FirstOrDefaultAsync(c => c.Name == productDto.CategoryName);
-            var product = new Product
-            {
-                Name = productDto.Name,
-                Description = productDto.Description,
-                Category = category,
-                Quantity = productDto.Quantity,
-                Price = productDto.Price
-            };
             await context.Products.AddAsync(product);
             await context.SaveChangesAsync();
             return product;

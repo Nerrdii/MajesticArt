@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using MajesticArt.Data.DataTransferObjects;
-using MajesticArt.Models;
 
 namespace MajesticArt.Profiles
 {
@@ -8,9 +6,6 @@ namespace MajesticArt.Profiles
     {
         public AutoMapperProfile()
         {
-            CreateMap<Product, ProductDTO>()
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
-                .ReverseMap();
         }
     }
 }
