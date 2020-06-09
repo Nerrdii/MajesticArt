@@ -1,12 +1,14 @@
 ﻿using System.Threading.Tasks;
 using MajesticArt.Models;
 using MajesticArt.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MajesticArt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService categoryService;
@@ -17,6 +19,7 @@ namespace MajesticArt.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var categories = await categoryService.GetAll();
@@ -24,6 +27,7 @@ namespace MajesticArt.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
         {
             var category = await categoryService.Get(id);

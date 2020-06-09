@@ -1,12 +1,14 @@
 ﻿using System.Threading.Tasks;
 using MajesticArt.Models;
 using MajesticArt.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MajesticArt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService productService;
@@ -17,6 +19,7 @@ namespace MajesticArt.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var products = await productService.GetAll();
@@ -24,6 +27,7 @@ namespace MajesticArt.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
         {
             var product = await productService.Get(id);
