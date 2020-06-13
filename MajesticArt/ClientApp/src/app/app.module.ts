@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
+import { MaterialModule } from './shared/material/material.module';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -26,6 +27,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
     ])
+    MaterialModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
