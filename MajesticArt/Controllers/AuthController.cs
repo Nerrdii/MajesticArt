@@ -34,7 +34,7 @@ namespace MajesticArt.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var user = await userManager.FindByNameAsync(loginDto.UserName);
+            var user = await userManager.FindByEmailAsync(loginDto.Email);
             if (user == null)
             {
                 return BadRequest("Invalid username or password");
@@ -46,7 +46,16 @@ namespace MajesticArt.Controllers
 
             if (result.Succeeded)
             {
-                return Ok(GenerateToken(identity));
+                var roles = await userManager.GetRolesAsync(user);
+                var loginResponseDto = new LoginResponseDto
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Roles = roles,
+                    Token = GenerateToken(identity)
+                };
+                return Ok(loginResponseDto);
             }
 
             return BadRequest("Invalid username or password");
