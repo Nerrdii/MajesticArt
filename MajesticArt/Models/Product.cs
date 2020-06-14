@@ -8,7 +8,7 @@
         public int Quantity { get; set; }
         public double Price { get; set; }
 
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public Category Category { get; set; }
     }
 }
