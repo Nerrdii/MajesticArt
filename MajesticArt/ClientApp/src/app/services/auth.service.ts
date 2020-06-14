@@ -4,6 +4,7 @@ import { User } from '../models/user.model';
 import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { SnackBarService } from './snack-bar.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private snackBarService: SnackBarService
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(
@@ -42,5 +44,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    this.router.navigate(['/']);
   }
 }

@@ -2,7 +2,20 @@
   <mat-toolbar-row>
     <a routerLink="/">Majestic Art</a>
     <span class="spacer"></span>
-    <a routerLink="/register" class="mr-3">Register</a>
-    <a routerLink="/login">Login</a>
+    <div *ngIf="!authenticated">
+      <a routerLink="/register" class="mr-3">Register</a>
+      <a routerLink="/login">Login</a>
+    </div>
+    <div *ngIf="authenticated">
+      <button mat-button [matMenuTriggerFor]="menu">
+        {{ name }} <mat-icon>expand_more</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button *ngIf="isAdmin" mat-menu-item routerLink="/admin">
+          Dashboard
+        </button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
