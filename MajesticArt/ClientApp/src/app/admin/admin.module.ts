@@ -1,19 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+
+import { MaterialModule } from '../shared/material/material.module';
+
+import { AdminAuthGuard } from './admin-auth.guard';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { EditDialogComponent } from './categories/edit-dialog/edit-dialog.component';
-import { FormsModule } from '@angular/forms';
 import { DeleteDialogComponent } from './categories/delete-dialog/delete-dialog.component';
-import { AdminAuthGuard } from './admin-auth.guard';
-import { MaterialModule } from '../shared/material/material.module';
+import { ProductsComponent } from './products/products.component';
 
 const routes: Routes = [
   {
     path: 'admin',
     component: DashboardComponent,
-    children: [{ path: 'categories', component: CategoriesComponent }],
+    children: [
+      { path: 'categories', component: CategoriesComponent },
+      { path: 'products', component: ProductsComponent },
+    ],
     canActivate: [AdminAuthGuard],
   },
 ];
@@ -24,6 +30,7 @@ const routes: Routes = [
     CategoriesComponent,
     EditDialogComponent,
     DeleteDialogComponent,
+    ProductsComponent,
   ],
   imports: [
     CommonModule,
