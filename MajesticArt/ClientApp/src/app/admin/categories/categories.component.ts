@@ -15,7 +15,10 @@ export class CategoriesComponent implements OnInit {
   public data: Category[] = [];
   public isLoading = true;
 
-  constructor(private dialog: MatDialog, private categoryService: CategoryService) {}
+  constructor(
+    private dialog: MatDialog,
+    private categoryService: CategoryService
+  ) {}
 
   ngOnInit() {
     this.categoryService.getAll().subscribe((categories) => {
@@ -24,11 +27,27 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
+  addCategory() {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: { name: '' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const newCategory = { name: result };
+        this.categoryService.add(newCategory).subscribe(() => {
+          this.categoryService.getAll().subscribe((categories) => {
+            this.data = categories;
+          });
+        });
+      }
+    });
+  }
+
   openEditDialog(row: Category) {
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: row
+      data: row,
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const newCategory = { id: row.id, name: result };
         this.categoryService.update(newCategory).subscribe(() => {
@@ -42,9 +61,9 @@ export class CategoriesComponent implements OnInit {
 
   openDeleteDialog(row: Category) {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: row
+      data: row,
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.categoryService.delete(row.id).subscribe(() => {
           this.categoryService.getAll().subscribe((categories) => {
