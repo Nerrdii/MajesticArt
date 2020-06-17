@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         () => this.router.navigateByUrl(this.return),
