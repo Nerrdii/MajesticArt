@@ -12,10 +12,12 @@ namespace MajesticArt.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService productService;
+        private readonly ICategoryService categoryService;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, ICategoryService categoryService)
         {
             this.productService = productService;
+            this.categoryService = categoryService;
         }
 
         [HttpGet]
@@ -41,8 +43,19 @@ namespace MajesticArt.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody]Product product)
+        public async Task<IActionResult> Add([FromBody]ProductDto productDto)
         {
+
+            var category = productDto.CategoryId != null ? await categoryService.Get(productDto.CategoryId.Value) : null;
+            var product = new Product
+            {
+                Name = productDto.Name,
+                Description = productDto.Description,
+                Quantity = productDto.Quantity,
+                Price = productDto.Price,
+                Category = category,
+                Image = productDto.Image
+            };
             var created = await productService.Add(product);
 
             return CreatedAtAction(nameof(Get), new { id = created.Id }, created);

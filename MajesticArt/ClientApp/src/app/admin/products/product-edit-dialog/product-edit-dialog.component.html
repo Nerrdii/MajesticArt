@@ -1,0 +1,126 @@
+<h1 mat-dialog-title>Add Product</h1>
+<div mat-dialog-content>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline" class="mb-3">
+          <mat-label>Name</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Name"
+            formControlName="name"
+            required
+          />
+          <mat-error *ngIf="name.invalid && (name.dirty || name.touched)"
+            >Name is required</mat-error
+          >
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline" class="mb-3">
+          <mat-label>Description</mat-label>
+          <textarea
+            rows="8"
+            matInput
+            placeholder="Description"
+            formControlName="description"
+            required
+          ></textarea>
+          <mat-error
+            *ngIf="
+              description.invalid && (description.dirty || description.touched)
+            "
+            >Description is required</mat-error
+          >
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline" class="mb-3">
+          <mat-label>Image</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Image URL"
+            formControlName="image"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline" class="mb-3">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option [value]="0">None</mat-option>
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.id"
+              >{{ category.name }}</mat-option
+            >
+          </mat-select>
+          <mat-error *ngIf="name.invalid && (name.dirty || name.touched)"
+            >Name is required</mat-error
+          >
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline" class="mb-3">
+          <mat-label>Price</mat-label>
+          <input
+            type="number"
+            matInput
+            placeholder="Price"
+            formControlName="price"
+            required
+          />
+          <mat-error
+            *ngIf="
+              price.invalid &&
+              (price.dirty || price.touched) &&
+              price.errors.required
+            "
+            >Price is required</mat-error
+          >
+          <mat-error
+            *ngIf="
+              price.invalid &&
+              (price.dirty || price.touched) &&
+              price.errors.min
+            "
+            >Price must be greater than 0</mat-error
+          >
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline" class="mb-3">
+          <mat-label>Quantity</mat-label>
+          <input
+            type="number"
+            matInput
+            placeholder="Quantity"
+            formControlName="quantity"
+            required
+          />
+          <mat-error
+            *ngIf="
+              quantity.invalid &&
+              (quantity.dirty || quantity.touched) &&
+              quantity.errors.required
+            "
+            >Quantity is required</mat-error
+          >
+          <mat-error
+            *ngIf="
+              quantity.invalid &&
+              (quantity.dirty || quantity.touched) &&
+              quantity.errors.min
+            "
+            >Quantity must be greater than 0</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <img *ngIf="image.value" [src]="image.value" class="ml-3" />
+    </div>
+  </form>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" (click)="onSubmit()">Save</button>
+</mat-dialog-actions>

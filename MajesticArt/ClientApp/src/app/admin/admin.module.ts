@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MaterialModule } from '../shared/material/material.module';
@@ -11,6 +11,8 @@ import { CategoriesComponent } from './categories/categories.component';
 import { EditDialogComponent } from './categories/edit-dialog/edit-dialog.component';
 import { DeleteDialogComponent } from './categories/delete-dialog/delete-dialog.component';
 import { ProductsComponent } from './products/products.component';
+import { ProductEditDialogComponent } from './products/product-edit-dialog/product-edit-dialog.component';
+import { ProductDeleteDialogComponent } from './products/product-delete-dialog/product-delete-dialog.component';
 
 const routes: Routes = [
   {
@@ -31,14 +33,22 @@ const routes: Routes = [
     EditDialogComponent,
     DeleteDialogComponent,
     ProductsComponent,
+    ProductEditDialogComponent,
+    ProductDeleteDialogComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes),
     MaterialModule,
   ],
-  entryComponents: [EditDialogComponent, DeleteDialogComponent],
+  entryComponents: [
+    EditDialogComponent,
+    DeleteDialogComponent,
+    ProductEditDialogComponent,
+    ProductDeleteDialogComponent,
+  ],
   providers: [AdminAuthGuard],
 })
 export class AdminModule {}
