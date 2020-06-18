@@ -87,7 +87,7 @@ namespace MajesticArt.Controllers
                 audience: configuration["JWT:Audience"],
                 claims: identity.Claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.Add(TimeSpan.FromHours(1)),
+                expires: DateTime.UtcNow.Add(TimeSpan.FromDays(1)),
                 signingCredentials);
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
