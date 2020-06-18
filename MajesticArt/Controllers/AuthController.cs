@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using MajesticArt.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +16,7 @@ namespace MajesticArt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration configuration;
@@ -32,6 +34,7 @@ namespace MajesticArt.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             var user = await userManager.FindByEmailAsync(loginDto.Email);
@@ -59,6 +62,64 @@ namespace MajesticArt.Controllers
             }
 
             return BadRequest("Invalid username or password");
+        }
+
+        [Route("update/email")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateEmail(UpdateEmailDto updateEmailDto)
+        {
+            var user = await userManager.FindByEmailAsync(updateEmailDto.Email);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+
+            if (email != updateEmailDto.Email)
+            {
+                return Unauthorized();
+            }
+
+            user.Email = updateEmailDto.NewEmail;
+            user.UserName = updateEmailDto.NewEmail;
+
+            var result = await userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        [Route("update/password")]
+        [HttpPut]
+        public async Task<IActionResult> UpdatePassword(UpdatePasswordDto updatePasswordDto)
+        {
+            var user = await userManager.FindByEmailAsync(updatePasswordDto.Email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+
+            if (email != updatePasswordDto.Email)
+            {
+                return Unauthorized();
+            }
+
+            var result = await userManager.ChangePasswordAsync(user, updatePasswordDto.Password, updatePasswordDto.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
 
         private async Task<ClaimsIdentity> GetClaimsIdentity(ApplicationUser user)
