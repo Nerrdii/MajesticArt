@@ -14,9 +14,17 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
+import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
-  declarations: [AppComponent, NavMenuComponent, HomeComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    NavMenuComponent,
+    HomeComponent,
+    LoginComponent,
+    ProfileComponent,
+  ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     BrowserAnimationsModule,
@@ -29,6 +37,11 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
         path: 'login',
         component: LoginComponent,
         canActivate: [LoginAuthGuard],
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [AuthGuard],
       },
     ]),
     MaterialModule,
