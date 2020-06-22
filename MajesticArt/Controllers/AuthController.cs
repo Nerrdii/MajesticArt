@@ -33,6 +33,45 @@ namespace MajesticArt.Controllers
             this.signInManager = signInManager;
         }
 
+        [HttpPost("register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+        {
+            var existingUser = await userManager.FindByEmailAsync(registerDto.Email);
+            if (existingUser != null)
+            {
+                return BadRequest("Username already exists");
+            }
+
+            var user = new ApplicationUser
+            {
+                UserName = registerDto.Email,
+                Email = registerDto.Email,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName
+            };
+
+            var result = await userManager.CreateAsync(user, registerDto.Password);
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, "User");
+                var roles = await userManager.GetRolesAsync(user);
+                ClaimsIdentity identity = await GetClaimsIdentity(user);
+                var loginResponseDto = new LoginResponseDto
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Roles = roles,
+                    Token = GenerateToken(identity)
+                };
+                return Ok(loginResponseDto);
+            }
+
+            return BadRequest();
+        }
+
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
