@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.authService.currentUser;
     this.currentUserFullName = this.currentUser.pipe(
-      map((user) => user.firstName + ' ' + user.lastName)
+      map((user) => user && user.firstName + ' ' + user.lastName)
     );
   }
 
