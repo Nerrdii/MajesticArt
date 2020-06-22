@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
 import { UpdateEmail } from '../models/update-email.model';
+import { UpdatePassword } from '../models/update-password.model';
 
 @Injectable({
   providedIn: 'root',
@@ -50,5 +51,11 @@ export class AuthService {
         return throwError(err);
       })
     );
+  }
+
+  updatePassword(updatePassword: UpdatePassword) {
+    return this.http
+      .put('/api/auth/update/password', updatePassword)
+      .pipe(catchError((err) => throwError(err)));
   }
 }

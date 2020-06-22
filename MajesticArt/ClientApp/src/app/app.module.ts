@@ -17,6 +17,7 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { EditEmailDialogComponent } from './profile/edit-email-dialog/edit-email-dialog.component';
+import { EditPasswordDialogComponent } from './profile/edit-password-dialog/edit-password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { EditEmailDialogComponent } from './profile/edit-email-dialog/edit-email
     LoginComponent,
     ProfileComponent,
     EditEmailDialogComponent,
+    EditPasswordDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -52,7 +54,7 @@ import { EditEmailDialogComponent } from './profile/edit-email-dialog/edit-email
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
-  entryComponents: [EditEmailDialogComponent],
+  entryComponents: [EditEmailDialogComponent, EditPasswordDialogComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
