@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Update Email</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Current Email</mat-label>
+      <input type="email" matInput formControlName="currentEmail" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>New Email</mat-label>
+      <input type="email" matInput formControlName="newEmail" required />
+      <mat-error
+        *ngIf="
+          newEmail.invalid &&
+          (newEmail.dirty || newEmail.touched) &&
+          newEmail.errors.required
+        "
+        >Email is required</mat-error
+      >
+      <mat-error
+        *ngIf="
+          newEmail.invalid &&
+          (newEmail.dirty || newEmail.touched) &&
+          newEmail.errors.email
+        "
+        >Email is invalid</mat-error
+      >
+    </mat-form-field>
+  </form>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="form.invalid"
+  >
+    Save
+  </button>
+</mat-dialog-actions>

@@ -16,6 +16,7 @@ import { LoginAuthGuard } from './guards/login-auth.guard';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
+import { EditEmailDialogComponent } from './profile/edit-email-dialog/edit-email-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AuthGuard } from './guards/auth.guard';
     HomeComponent,
     LoginComponent,
     ProfileComponent,
+    EditEmailDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,6 +52,7 @@ import { AuthGuard } from './guards/auth.guard';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
+  entryComponents: [EditEmailDialogComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

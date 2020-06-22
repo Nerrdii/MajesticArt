@@ -1,15 +1,55 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { AuthService } from '../services/auth.service';
+import { User } from '../models/user.model';
+import { map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { EditEmailDialogComponent } from './edit-email-dialog/edit-email-dialog.component';
+import { UpdateEmail } from '../models/update-email.model';
+import { SnackBarService } from '../services/snack-bar.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  currentUser: Observable<User>;
+  currentUserFullName: Observable<string>;
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+    private authService: AuthService,
+    private snackBarService: SnackBarService
+  ) {}
 
   ngOnInit() {
+    this.currentUser = this.authService.currentUser;
+    this.currentUserFullName = this.currentUser.pipe(
+      map((user) => user.firstName + ' ' + user.lastName)
+    );
   }
 
+  changeEmail() {
+    const dialogRef = this.dialog.open(EditEmailDialogComponent, {
+      data: this.authService.currentUserValue.email,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const updateEmail: UpdateEmail = {
+          email: this.authService.currentUserValue.email,
+          newEmail: result,
+        };
+        this.authService.updateEmail(updateEmail).subscribe(
+          () => {
+            this.snackBarService.openSnackBar('You did it', null, 3000);
+          },
+          (err) => {
+            this.snackBarService.openSnackBar(err, null, 3000);
+          }
+        );
+      }
+    });
+  }
 }

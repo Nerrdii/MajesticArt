@@ -5,6 +5,7 @@ import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
+import { UpdateEmail } from '../models/update-email.model';
 
 @Injectable({
   providedIn: 'root',
@@ -41,5 +42,13 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.router.navigate(['/']);
+  }
+
+  updateEmail(updateEmail: UpdateEmail) {
+    return this.http.put('/api/auth/update/email', updateEmail).pipe(
+      catchError((err) => {
+        return throwError(err);
+      })
+    );
   }
 }
