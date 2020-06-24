@@ -26,6 +26,24 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  register(values: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+  }) {
+    return this.http.post<User>('/api/auth/register', values).pipe(
+      map((user) => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        return user;
+      }),
+      catchError((err) => {
+        return throwError(err);
+      })
+    );
+  }
+
   login(values: { email: string; password: string }) {
     return this.http.post<User>('/api/auth/login', values).pipe(
       map((user) => {
@@ -61,5 +79,9 @@ export class AuthService {
 
   isCurrentPasswordCorrect(password: string) {
     return this.http.get<boolean>(`/api/auth/password?password=${password}`);
+  }
+
+  doesEmailExist(email: string) {
+    return this.http.get<boolean>(`/api/auth/email?email=${email}`);
   }
 }

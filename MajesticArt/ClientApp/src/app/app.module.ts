@@ -18,6 +18,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { EditEmailDialogComponent } from './profile/edit-email-dialog/edit-email-dialog.component';
 import { EditPasswordDialogComponent } from './profile/edit-password-dialog/edit-password-dialog.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { EditPasswordDialogComponent } from './profile/edit-password-dialog/edit
     ProfileComponent,
     EditEmailDialogComponent,
     EditPasswordDialogComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -46,6 +48,11 @@ import { EditPasswordDialogComponent } from './profile/edit-password-dialog/edit
         path: 'profile',
         component: ProfileComponent,
         canActivate: [AuthGuard],
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+        canActivate: [LoginAuthGuard],
       },
     ]),
     MaterialModule,

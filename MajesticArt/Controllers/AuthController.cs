@@ -172,6 +172,15 @@ namespace MajesticArt.Controllers
             return result;
         }
 
+        [Route("email")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<bool> CheckEmail([FromQuery] string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            return user != null;
+        }
+
         private async Task<ClaimsIdentity> GetClaimsIdentity(ApplicationUser user)
         {
             var roles = await userManager.GetRolesAsync(user);
