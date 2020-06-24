@@ -158,7 +158,18 @@ namespace MajesticArt.Controllers
                 return Ok();
             }
 
-            return BadRequest();
+            return BadRequest("Current password incorrect");
+        }
+
+        [Route("password")]
+        [HttpGet]
+        public async Task<bool> CheckPassword([FromQuery] string password)
+        {
+            var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+            var result = await userManager.CheckPasswordAsync(user, password);
+
+            return result;
         }
 
         private async Task<ClaimsIdentity> GetClaimsIdentity(ApplicationUser user)

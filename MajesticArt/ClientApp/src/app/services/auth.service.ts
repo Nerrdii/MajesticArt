@@ -58,4 +58,8 @@ export class AuthService {
       .put('/api/auth/update/password', updatePassword)
       .pipe(catchError((err) => throwError(err)));
   }
+
+  isCurrentPasswordCorrect(password: string) {
+    return this.http.get<boolean>(`/api/auth/password?password=${password}`);
+  }
 }

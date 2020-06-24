@@ -7,6 +7,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { CurrentPasswordValidator } from 'src/app/validators/current-password.validator';
 
 export const confirmPasswordValidator: ValidatorFn = (
   control: FormGroup
@@ -14,11 +15,11 @@ export const confirmPasswordValidator: ValidatorFn = (
   const newPassword = control.get('newPassword');
   const confirmPassword = control.get('confirmPassword');
 
-  return newPassword &&
-    confirmPassword &&
-    newPassword.value !== confirmPassword.value
-    ? { confirmPassword: true }
-    : null;
+  if (newPassword.value !== confirmPassword.value) {
+    confirmPassword.setErrors({ ...confirmPassword.errors, noMatch: true });
+  }
+
+  return null;
 };
 
 @Component({
@@ -29,8 +30,17 @@ export const confirmPasswordValidator: ValidatorFn = (
 export class EditPasswordDialogComponent implements OnInit {
   form = new FormGroup(
     {
-      currentPassword: new FormControl('', [Validators.required]),
-      newPassword: new FormControl('', [Validators.required]),
+      currentPassword: new FormControl(
+        '',
+        [Validators.required],
+        [this.currentPasswordValidator.validate()]
+      ),
+      newPassword: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/
+        ),
+      ]),
       confirmPassword: new FormControl('', [Validators.required]),
     },
     { validators: confirmPasswordValidator }
@@ -39,7 +49,10 @@ export class EditPasswordDialogComponent implements OnInit {
   newPassword = this.form.get('newPassword');
   confirmPassword = this.form.get('confirmPassword');
 
-  constructor(public dialogRef: MatDialogRef<EditPasswordDialogComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<EditPasswordDialogComponent>,
+    private currentPasswordValidator: CurrentPasswordValidator
+  ) {}
 
   ngOnInit() {}
 
