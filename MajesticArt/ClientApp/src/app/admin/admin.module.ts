@@ -13,6 +13,7 @@ import { DeleteDialogComponent } from './categories/delete-dialog/delete-dialog.
 import { ProductsComponent } from './products/products.component';
 import { ProductEditDialogComponent } from './products/product-edit-dialog/product-edit-dialog.component';
 import { ProductDeleteDialogComponent } from './products/product-delete-dialog/product-delete-dialog.component';
+import { ProductImageDialogComponent } from './products/product-image-dialog/product-image-dialog.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
     ProductsComponent,
     ProductEditDialogComponent,
     ProductDeleteDialogComponent,
+    ProductImageDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -48,6 +50,7 @@ const routes: Routes = [
     DeleteDialogComponent,
     ProductEditDialogComponent,
     ProductDeleteDialogComponent,
+    ProductImageDialogComponent,
   ],
   providers: [AdminAuthGuard],
 })

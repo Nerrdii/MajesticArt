@@ -5,6 +5,7 @@ import { Product } from 'src/app/models/product.model';
 import { ProductService } from './product.service';
 import { ProductEditDialogComponent } from './product-edit-dialog/product-edit-dialog.component';
 import { ProductDeleteDialogComponent } from './product-delete-dialog/product-delete-dialog.component';
+import { ProductImageDialogComponent } from './product-image-dialog/product-image-dialog.component';
 
 @Component({
   selector: 'app-products',
@@ -19,6 +20,7 @@ export class ProductsComponent implements OnInit {
     'quantity',
     'price',
     'category',
+    'image',
     'edit',
     'delete',
   ];
@@ -101,5 +103,9 @@ export class ProductsComponent implements OnInit {
         });
       }
     });
+  }
+
+  openImageDialog(row: Product) {
+    this.dialog.open(ProductImageDialogComponent, { data: row.image });
   }
 }
