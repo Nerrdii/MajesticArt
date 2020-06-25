@@ -20,9 +20,7 @@ export class ProductsComponent implements OnInit {
     'quantity',
     'price',
     'category',
-    'image',
-    'edit',
-    'delete',
+    'actions',
   ];
   public data: Product[] = [];
   public isLoading = true;
@@ -73,20 +71,22 @@ export class ProductsComponent implements OnInit {
       data: row,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      const product: Product = {
-        name: result.name,
-        categoryId: result.category ? result.category : null,
-        description: result.description,
-        image: result.image,
-        price: result.price,
-        quantity: result.quantity,
-        id: row.id,
-      };
-      this.productService.update(product).subscribe(() => {
-        this.productService.getAll().subscribe((products) => {
-          this.data = products;
+      if (result) {
+        const product: Product = {
+          name: result.name,
+          categoryId: result.category ? result.category : null,
+          description: result.description,
+          image: result.image,
+          price: result.price,
+          quantity: result.quantity,
+          id: row.id,
+        };
+        this.productService.update(product).subscribe(() => {
+          this.productService.getAll().subscribe((products) => {
+            this.data = products;
+          });
         });
-      });
+      }
     });
   }
 
