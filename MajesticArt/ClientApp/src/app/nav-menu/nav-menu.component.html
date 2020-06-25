@@ -11,10 +11,11 @@
         {{ name }} <mat-icon>expand_more</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button *ngIf="isAdmin" mat-menu-item routerLink="/admin">
-          Dashboard
-        </button>
         <button mat-menu-item routerLink="/profile">Profile</button>
+        <button *ngIf="isAdmin" mat-menu-item routerLink="/admin">
+          Admin
+        </button>
+        <mat-divider></mat-divider>
         <button mat-menu-item (click)="logout()">Logout</button>
       </mat-menu>
     </div>
