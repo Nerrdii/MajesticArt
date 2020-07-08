@@ -20,7 +20,6 @@ namespace MajesticArt.Data
 
             builder.Entity<Product>().Property(p => p.Name).IsRequired();
             builder.Entity<Product>().Property(p => p.Description).IsRequired();
-            builder.Entity<Product>().Property(p => p.Quantity).IsRequired();
             builder.Entity<Product>().Property(p => p.Price).IsRequired();
 
             base.OnModelCreating(builder);

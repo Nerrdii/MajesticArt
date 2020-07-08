@@ -51,7 +51,6 @@ namespace MajesticArt.Controllers
             {
                 Name = productDto.Name,
                 Description = productDto.Description,
-                Quantity = productDto.Quantity,
                 Price = productDto.Price,
                 Category = category,
                 Image = productDto.Image

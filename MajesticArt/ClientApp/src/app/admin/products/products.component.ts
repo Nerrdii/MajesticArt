@@ -17,7 +17,6 @@ export class ProductsComponent implements OnInit {
     'id',
     'name',
     'description',
-    'quantity',
     'price',
     'category',
     'actions',
@@ -44,7 +43,6 @@ export class ProductsComponent implements OnInit {
       categoryId: null,
       image: '',
       price: null,
-      quantity: null,
     };
     const dialogRef = this.dialog.open(ProductEditDialogComponent, {
       data: product,
@@ -56,7 +54,6 @@ export class ProductsComponent implements OnInit {
         description: result.description,
         image: result.image,
         price: result.price,
-        quantity: result.quantity,
       };
       this.productService.add(newProduct).subscribe(() => {
         this.productService.getAll().subscribe((products) => {
@@ -78,7 +75,6 @@ export class ProductsComponent implements OnInit {
           description: result.description,
           image: result.image,
           price: result.price,
-          quantity: result.quantity,
           id: row.id,
         };
         this.productService.update(product).subscribe(() => {

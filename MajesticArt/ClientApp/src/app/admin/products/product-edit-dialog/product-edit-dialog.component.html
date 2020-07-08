@@ -86,33 +86,6 @@
             >Price must be greater than 0</mat-error
           >
         </mat-form-field>
-        <br />
-        <mat-form-field appearance="outline" class="mb-3">
-          <mat-label>Quantity</mat-label>
-          <input
-            type="number"
-            matInput
-            placeholder="Quantity"
-            formControlName="quantity"
-            required
-          />
-          <mat-error
-            *ngIf="
-              quantity.invalid &&
-              (quantity.dirty || quantity.touched) &&
-              quantity.errors.required
-            "
-            >Quantity is required</mat-error
-          >
-          <mat-error
-            *ngIf="
-              quantity.invalid &&
-              (quantity.dirty || quantity.touched) &&
-              quantity.errors.min
-            "
-            >Quantity must be greater than 0</mat-error
-          >
-        </mat-form-field>
       </div>
     </div>
     <div class="row">

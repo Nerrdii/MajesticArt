@@ -16,14 +16,12 @@ export class ProductEditDialogComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     image: new FormControl(''),
-    quantity: new FormControl('', [Validators.required, Validators.min(1)]),
     price: new FormControl('', [Validators.required, Validators.min(1)]),
     category: new FormControl(''),
   });
   name = this.productForm.get('name');
   description = this.productForm.get('description');
   image = this.productForm.get('image');
-  quantity = this.productForm.get('quantity');
   price = this.productForm.get('price');
   category = this.productForm.get('category');
 
@@ -39,7 +37,6 @@ export class ProductEditDialogComponent implements OnInit {
     this.name.setValue(this.data.name);
     this.description.setValue(this.data.description);
     this.image.setValue(this.data.image ? this.data.image : '');
-    this.quantity.setValue(this.data.quantity);
     this.price.setValue(this.data.price);
     this.category.setValue(this.data.category ? this.data.category.id : '');
 
