@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, BehaviorSubject, combineLatest } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Category } from '../models/category.model';
 import { Product } from '../models/product.model';
 import { CategoryService } from '../admin/categories/category.service';
 import { ProductService } from '../admin/products/product.service';
-import { switchMap, map, filter, tap, mergeMap } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,7 @@ import { switchMap, map, filter, tap, mergeMap } from 'rxjs/operators';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  authenticated: boolean;
   initialProducts: Observable<Product[]>;
   visibleProducts: Observable<Product[]>;
   categories: Observable<Category[]>;
@@ -21,10 +24,16 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private authService: AuthService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe((user) => {
+      this.authenticated = user != null;
+    });
+
     this.categories = this.categoryService.getAll();
     this.initialProducts = this.productService.getAll();
     this.visibleProducts = combineLatest([
@@ -56,5 +65,9 @@ export class HomeComponent implements OnInit {
 
   onSortByChange(sortBy: string) {
     this.sortBy.next(sortBy);
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
   }
 }

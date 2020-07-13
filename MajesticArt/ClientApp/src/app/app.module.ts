@@ -19,6 +19,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { EditEmailDialogComponent } from './profile/edit-email-dialog/edit-email-dialog.component';
 import { EditPasswordDialogComponent } from './profile/edit-password-dialog/edit-password-dialog.component';
 import { RegisterComponent } from './register/register.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { RegisterComponent } from './register/register.component';
     EditEmailDialogComponent,
     EditPasswordDialogComponent,
     RegisterComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -53,6 +55,11 @@ import { RegisterComponent } from './register/register.component';
         path: 'register',
         component: RegisterComponent,
         canActivate: [LoginAuthGuard],
+      },
+      {
+        path: 'cart',
+        component: CartComponent,
+        canActivate: [AuthGuard],
       },
     ]),
     MaterialModule,

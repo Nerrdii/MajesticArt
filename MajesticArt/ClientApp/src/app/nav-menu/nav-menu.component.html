@@ -7,6 +7,9 @@
       <a routerLink="/login">Login</a>
     </div>
     <div *ngIf="authenticated">
+      <button mat-icon-button routerLink="/cart">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
       <button mat-button [matMenuTriggerFor]="menu">
         {{ name }} <mat-icon>expand_more</mat-icon>
       </button>
