@@ -3,6 +3,7 @@
   <p>You currently have no items in your cart</p>
 </div>
 <div *ngIf="(items | async).length">
+  <p>Subtotal: {{ subtotal | currency }}</p>
   <div class="row">
     <div *ngFor="let product of items | async" class="col-4">
       <mat-card class="mb-5">
