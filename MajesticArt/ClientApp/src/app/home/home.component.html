@@ -38,6 +38,7 @@
             mat-icon-button
             color="primary"
             (click)="addToCart(product)"
+            [disabled]="product.inCart"
           >
             <mat-icon>add_shopping_cart</mat-icon>
           </button>

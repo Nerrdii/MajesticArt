@@ -40,19 +40,30 @@ export class HomeComponent implements OnInit {
       this.initialProducts,
       this.selectedCategoryId.asObservable(),
       this.sortBy.asObservable(),
+      this.cartService.items$,
     ]).pipe(
-      map(([products, categoryId, sortBy]) => {
+      map(([products, categoryId, sortBy, cartItems]) => {
         const first = categoryId
           ? products.filter((product) => product.categoryId === categoryId)
           : products;
 
+        const second = first.map((product) => {
+          cartItems.forEach((p) => {
+            if (p.id === product.id) {
+              product.inCart = true;
+            }
+          });
+
+          return product;
+        });
+
         if (sortBy === 'lth') {
-          return first.sort((a, b) => a.price - b.price);
+          return second.sort((a, b) => a.price - b.price);
         } else if (sortBy === 'htl') {
-          return first.sort((a, b) => b.price - a.price);
+          return second.sort((a, b) => b.price - a.price);
         }
 
-        return first.sort((a, b) =>
+        return second.sort((a, b) =>
           a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
         );
       })
