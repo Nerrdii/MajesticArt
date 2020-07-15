@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { loadStripe } from '@stripe/stripe-js';
 
 import { Product } from '../models/product.model';
 
@@ -18,7 +20,7 @@ export class CartService {
     localStorage.setItem('cartItems', JSON.stringify(products));
   }
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.itemsSubject.next(this.items);
     this.items$ = this.itemsSubject.asObservable();
   }
@@ -31,5 +33,12 @@ export class CartService {
   removeProduct(productId: number) {
     this.items = this.items.filter((product) => product.id !== productId);
     this.itemsSubject.next(this.items);
+  }
+
+  async checkout() {
+    const stripe = await loadStripe('pk_test_s8rfwzJLPHG843VC3855bk9P');
+    this.http.post('/api/checkout', this.items).subscribe((res: any) => {
+      stripe.redirectToCheckout({ sessionId: res.sessionId });
+    });
   }
 }

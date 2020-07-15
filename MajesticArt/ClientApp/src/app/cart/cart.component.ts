@@ -28,4 +28,8 @@ export class CartComponent implements OnInit {
   removeProduct(product: Product) {
     this.cartService.removeProduct(product.id);
   }
+
+  checkout() {
+    this.cartService.checkout();
+  }
 }

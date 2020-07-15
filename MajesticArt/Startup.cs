@@ -75,6 +75,8 @@ namespace MajesticArt
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Stripe.StripeConfiguration.ApiKey = Configuration["Stripe:SecretKey"];
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

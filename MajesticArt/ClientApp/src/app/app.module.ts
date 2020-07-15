@@ -19,6 +19,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { EditEmailDialogComponent } from './profile/edit-email-dialog/edit-email-dialog.component';
 import { EditPasswordDialogComponent } from './profile/edit-password-dialog/edit-password-dialog.component';
 import { RegisterComponent } from './register/register.component';
+import { SuccessComponent } from './success/success.component';
 import { CartComponent } from './cart/cart.component';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { CartComponent } from './cart/cart.component';
     EditEmailDialogComponent,
     EditPasswordDialogComponent,
     RegisterComponent,
+    SuccessComponent,
     CartComponent,
   ],
   imports: [
@@ -55,6 +57,11 @@ import { CartComponent } from './cart/cart.component';
         path: 'register',
         component: RegisterComponent,
         canActivate: [LoginAuthGuard],
+      },
+      {
+        path: 'success',
+        component: SuccessComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'cart',
