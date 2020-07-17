@@ -3,6 +3,7 @@ using System.Security.Claims;
 using MajesticArt.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using Stripe.Checkout;
 
 namespace MajesticArt.Controllers
@@ -23,16 +24,20 @@ namespace MajesticArt.Controllers
             {
                 lineItems.Add(new SessionLineItemOptions
                 {
-                    PriceData = new Stripe.SessionLineItemPriceDataOptions
+                    PriceData = new SessionLineItemPriceDataOptions
                     {
                         Currency = "usd",
-                        ProductData = new Stripe.SessionLineItemPriceDataProductDataOptions
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
                             Name = product.Name,
                             Description = product.Description,
                             Images = new List<string>
                             {
                                 product.Image != string.Empty ? product.Image : "https://via.placeholder.com/150"
+                            },
+                            Metadata = new Dictionary<string, string>
+                            {
+                                { "AppId", product.Id.ToString() }
                             }
                         },
                         UnitAmount = (long)product.Price * 100
