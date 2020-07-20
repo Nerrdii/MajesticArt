@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using MajesticArt.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
 using Stripe.Checkout;
@@ -13,10 +15,18 @@ namespace MajesticArt.Controllers
     [Authorize]
     public class CheckoutController : ControllerBase
     {
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public CheckoutController(UserManager<ApplicationUser> userManager)
+        {
+            this.userManager = userManager;
+        }
+
         [HttpPost]
-        public ActionResult Checkout([FromBody] IEnumerable<ProductDto> products)
+        public async Task<IActionResult> Checkout([FromBody] IEnumerable<ProductDto> products)
         {
             var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
 
             var lineItems = new List<SessionLineItemOptions>();
 
@@ -37,7 +47,8 @@ namespace MajesticArt.Controllers
                             },
                             Metadata = new Dictionary<string, string>
                             {
-                                { "AppId", product.Id.ToString() }
+                                { "AppId", product.Id.ToString() },
+                                { "UserId", user.Id }
                             }
                         },
                         UnitAmount = (long)product.Price * 100
