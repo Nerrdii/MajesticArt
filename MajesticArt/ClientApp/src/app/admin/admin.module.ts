@@ -14,6 +14,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductEditDialogComponent } from './products/product-edit-dialog/product-edit-dialog.component';
 import { ProductDeleteDialogComponent } from './products/product-delete-dialog/product-delete-dialog.component';
 import { ProductImageDialogComponent } from './products/product-image-dialog/product-image-dialog.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
     children: [
       { path: 'categories', component: CategoriesComponent },
       { path: 'products', component: ProductsComponent },
+      { path: 'orders', component: OrdersComponent },
     ],
     canActivate: [AdminAuthGuard],
   },
@@ -37,6 +39,7 @@ const routes: Routes = [
     ProductEditDialogComponent,
     ProductDeleteDialogComponent,
     ProductImageDialogComponent,
+    OrdersComponent,
   ],
   imports: [
     CommonModule,

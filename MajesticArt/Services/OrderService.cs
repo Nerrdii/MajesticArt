@@ -31,7 +31,7 @@ namespace MajesticArt.Services
 
         public async Task<IEnumerable<Order>> GetAll()
         {
-            return await context.Orders.ToListAsync();
+            return await context.Orders.Include("User").Include("Products").ToListAsync();
         }
 
         public async Task<IEnumerable<Order>> GetByUserId(string userId)
