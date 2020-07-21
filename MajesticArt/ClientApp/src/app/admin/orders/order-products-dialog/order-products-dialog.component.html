@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>View Products</h1>
+<div mat-dialog-content>
+  <div *ngFor="let product of data">
+    <mat-card class="mb-5">
+      <mat-card-header>
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <mat-card-subtitle>{{ product.price | currency }}</mat-card-subtitle>
+      </mat-card-header>
+      <img *ngIf="product.image" [src]="product.image" class="mb-3" />
+      <mat-card-content>
+        <p>{{ product.description }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

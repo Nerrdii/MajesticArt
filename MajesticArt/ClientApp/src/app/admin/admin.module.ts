@@ -15,6 +15,7 @@ import { ProductEditDialogComponent } from './products/product-edit-dialog/produ
 import { ProductDeleteDialogComponent } from './products/product-delete-dialog/product-delete-dialog.component';
 import { ProductImageDialogComponent } from './products/product-image-dialog/product-image-dialog.component';
 import { OrdersComponent } from './orders/orders.component';
+import { OrderProductsDialogComponent } from './orders/order-products-dialog/order-products-dialog.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
     ProductDeleteDialogComponent,
     ProductImageDialogComponent,
     OrdersComponent,
+    OrderProductsDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -54,6 +56,7 @@ const routes: Routes = [
     ProductEditDialogComponent,
     ProductDeleteDialogComponent,
     ProductImageDialogComponent,
+    OrderProductsDialogComponent,
   ],
   providers: [AdminAuthGuard],
 })
