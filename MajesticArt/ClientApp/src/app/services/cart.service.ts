@@ -35,6 +35,11 @@ export class CartService {
     this.itemsSubject.next(this.items);
   }
 
+  emptyCart() {
+    this.items = [];
+    this.itemsSubject.next(this.items);
+  }
+
   async checkout() {
     const stripe = await loadStripe('pk_test_s8rfwzJLPHG843VC3855bk9P');
     this.http.post('/api/checkout', this.items).subscribe((res: any) => {
