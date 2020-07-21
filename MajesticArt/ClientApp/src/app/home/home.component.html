@@ -25,16 +25,22 @@
   </div>
   <div class="row">
     <div *ngFor="let product of visibleProducts | async" class="col-4">
-      <mat-card class="mb-5">
+      <mat-card
+        class="mb-5"
+        [ngClass]="{ 'sold-out': product.status === SOLD }"
+      >
         <mat-card-header>
-          <mat-card-title>{{ product.name }}</mat-card-title>
+          <mat-card-title
+            >{{ product.name }}
+            {{ product.status === SOLD ? ' - SOLD OUT' : '' }}</mat-card-title
+          >
           <mat-card-subtitle>{{ product.price | currency }}</mat-card-subtitle>
         </mat-card-header>
         <img *ngIf="product.image" [src]="product.image" class="mb-3" />
         <mat-card-content>
           <p>{{ product.description }}</p>
           <button
-            *ngIf="authenticated"
+            *ngIf="authenticated && product.status === ACTIVE"
             mat-icon-button
             color="primary"
             (click)="addToCart(product)"

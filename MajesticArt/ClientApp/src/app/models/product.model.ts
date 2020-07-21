@@ -9,4 +9,10 @@ export interface Product {
   categoryId: number;
   category?: Category;
   inCart?: boolean;
+  status?: ProductStatus;
+}
+
+export enum ProductStatus {
+  Active,
+  Sold,
 }

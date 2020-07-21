@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Category } from '../models/category.model';
-import { Product } from '../models/product.model';
+import { Product, ProductStatus } from '../models/product.model';
 import { CategoryService } from '../admin/categories/category.service';
 import { ProductService } from '../admin/products/product.service';
 import { AuthService } from '../services/auth.service';
@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit {
   categories: Observable<Category[]>;
   selectedCategoryId: BehaviorSubject<number> = new BehaviorSubject(0);
   sortBy: BehaviorSubject<string> = new BehaviorSubject('');
+
+  ACTIVE = ProductStatus.Active;
+  SOLD = ProductStatus.Sold;
 
   constructor(
     private productService: ProductService,
