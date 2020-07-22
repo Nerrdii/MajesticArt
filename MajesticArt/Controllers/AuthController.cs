@@ -48,7 +48,8 @@ namespace MajesticArt.Controllers
                 UserName = registerDto.Email,
                 Email = registerDto.Email,
                 FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName
+                LastName = registerDto.LastName,
+                Address = registerDto.Address
             };
 
             var result = await userManager.CreateAsync(user, registerDto.Password);
@@ -64,6 +65,7 @@ namespace MajesticArt.Controllers
                     LastName = user.LastName,
                     Email = user.Email,
                     Roles = roles,
+                    Address = user.Address,
                     Token = GenerateToken(identity)
                 };
                 return Ok(loginResponseDto);
@@ -95,6 +97,7 @@ namespace MajesticArt.Controllers
                     LastName = user.LastName,
                     Email = user.Email,
                     Roles = roles,
+                    Address = user.Address,
                     Token = GenerateToken(identity)
                 };
                 return Ok(loginResponseDto);

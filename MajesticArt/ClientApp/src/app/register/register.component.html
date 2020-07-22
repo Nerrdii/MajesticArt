@@ -46,8 +46,7 @@
                 >Last name is required</mat-error
               >
             </mat-form-field>
-          </div>
-          <div class="col">
+            <br />
             <mat-form-field appearance="outline" class="mb-3">
               <mat-label>Email</mat-label>
               <input
@@ -109,6 +108,81 @@
                 >Password doesn't meet requirements</mat-error
               >
             </mat-form-field>
+          </div>
+          <div class="col" formGroupName="address">
+            <mat-form-field appearance="outline" class="mb-3">
+              <mat-label>Address Line 1</mat-label>
+              <input
+                type="text"
+                matInput
+                placeholder="Address Line 1"
+                formControlName="line1"
+                required
+              />
+              <mat-error
+                *ngIf="
+                  addressLine1.invalid &&
+                  (addressLine1.dirty || addressLine1.touched)
+                "
+                >Address Line 1 is required</mat-error
+              >
+            </mat-form-field>
+            <br />
+            <mat-form-field appearance="outline" class="mb-3">
+              <mat-label>Address Line 2</mat-label>
+              <input
+                type="text"
+                matInput
+                placeholder="Address Line 2 (optional)"
+                formControlName="line2"
+              />
+            </mat-form-field>
+            <br />
+            <mat-form-field appearance="outline" class="mb-3">
+              <mat-label>City</mat-label>
+              <input
+                type="text"
+                matInput
+                placeholder="City"
+                formControlName="city"
+                required
+              />
+              <mat-error *ngIf="city.invalid && (city.dirty || city.touched)"
+                >City is required</mat-error
+              >
+            </mat-form-field>
+            <br />
+            <mat-form-field appearance="outline" class="mb-3">
+              <mat-label>State</mat-label>
+              <input
+                type="text"
+                matInput
+                placeholder="State"
+                formControlName="state"
+                required
+                maxlength="2"
+              />
+              <mat-error *ngIf="state.invalid && (state.dirty || state.touched)"
+                >State is required</mat-error
+              >
+            </mat-form-field>
+            <br />
+            <mat-form-field appearance="outline" class="mb-3">
+              <mat-label>Zip Code</mat-label>
+              <input
+                type="text"
+                matInput
+                placeholder="Zip Code"
+                formControlName="zipCode"
+                required
+                maxlength="5"
+              />
+              <mat-error
+                *ngIf="zipCode.invalid && (zipCode.dirty || zipCode.touched)"
+                >Zip Code is required</mat-error
+              >
+            </mat-form-field>
+            <br />
           </div>
         </div>
         <button type="submit" mat-flat-button color="primary">Register</button>

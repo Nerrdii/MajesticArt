@@ -31,6 +31,13 @@ export class AuthService {
     password: string;
     firstName: string;
     lastName: string;
+    address: {
+      line1: string;
+      line2: string;
+      city: string;
+      state: string;
+      zipCode: string;
+    };
   }) {
     return this.http.post<User>('/api/auth/register', values).pipe(
       map((user) => {

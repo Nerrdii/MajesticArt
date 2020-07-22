@@ -12,6 +12,7 @@ namespace MajesticArt.Models
         public string Email { get; set; }
         public ICollection<string> Roles { get; set; }
         public string Token { get; set; }
+        public Address Address { get; set; }
 
     }
 }
