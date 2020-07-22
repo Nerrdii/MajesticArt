@@ -10,6 +10,8 @@ import { UpdateEmail } from '../models/update-email.model';
 import { SnackBarService } from '../services/snack-bar.service';
 import { EditPasswordDialogComponent } from './edit-password-dialog/edit-password-dialog.component';
 import { UpdatePassword } from '../models/update-password.model';
+import { EditAddressDialogComponent } from './edit-address-dialog/edit-address-dialog.component';
+import { Address } from '../models/address.model';
 
 @Component({
   selector: 'app-profile',
@@ -82,6 +84,23 @@ export class ProfileComponent implements OnInit {
             this.snackBarService.openSnackBar(err.error, null, 3000);
           }
         );
+      }
+    });
+  }
+
+  changeAddress() {
+    const dialogRef = this.dialog.open(EditAddressDialogComponent, {
+      data: this.authService.currentUserValue.address,
+    });
+    dialogRef.afterClosed().subscribe((result: Address) => {
+      if (result) {
+        this.authService.updateAddress(result).subscribe(() => {
+          this.snackBarService.openSnackBar(
+            'Address updated successfully',
+            null,
+            3000
+          );
+        });
       }
     });
   }

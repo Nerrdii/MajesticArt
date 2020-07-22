@@ -21,6 +21,7 @@ import { EditPasswordDialogComponent } from './profile/edit-password-dialog/edit
 import { RegisterComponent } from './register/register.component';
 import { SuccessComponent } from './success/success.component';
 import { CartComponent } from './cart/cart.component';
+import { EditAddressDialogComponent } from './profile/edit-address-dialog/edit-address-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { CartComponent } from './cart/cart.component';
     RegisterComponent,
     SuccessComponent,
     CartComponent,
+    EditAddressDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -75,7 +77,11 @@ import { CartComponent } from './cart/cart.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
-  entryComponents: [EditEmailDialogComponent, EditPasswordDialogComponent],
+  entryComponents: [
+    EditEmailDialogComponent,
+    EditPasswordDialogComponent,
+    EditAddressDialogComponent,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

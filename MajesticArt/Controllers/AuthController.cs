@@ -164,6 +164,25 @@ namespace MajesticArt.Controllers
             return BadRequest("Current password incorrect");
         }
 
+        [Route("update/address")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateAddress(Address address)
+        {
+            var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+
+            user.Address = address;
+
+            var result = await userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
         [Route("password")]
         [HttpGet]
         public async Task<bool> CheckPassword([FromQuery] string password)

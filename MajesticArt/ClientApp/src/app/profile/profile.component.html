@@ -1,9 +1,29 @@
-<h1>Hello {{ currentUserFullName | async }}</h1>
+<div class="mt-5">
+  <h1>Hello {{ currentUserFullName | async }}</h1>
 
-<button mat-flat-button color="primary" (click)="changeEmail()">
-  Change Email
-</button>
+  <div class="mt-3">
+    <h3>Settings</h3>
 
-<button mat-flat-button color="primary" (click)="changePassword()">
-  Change Password
-</button>
+    <button
+      mat-flat-button
+      color="primary"
+      class="mr-3"
+      (click)="changeEmail()"
+    >
+      Change Email
+    </button>
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="mr-3"
+      (click)="changePassword()"
+    >
+      Change Password
+    </button>
+
+    <button mat-flat-button color="primary" (click)="changeAddress()">
+      Change Address
+    </button>
+  </div>
+</div>
