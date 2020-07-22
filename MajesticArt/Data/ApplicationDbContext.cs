@@ -24,6 +24,14 @@ namespace MajesticArt.Data
             builder.Entity<Product>().Property(p => p.Price).IsRequired();
             builder.Entity<Product>().Property(p => p.Status).HasDefaultValue(ProductStatus.Active);
 
+            builder.Entity<ApplicationUser>().OwnsOne(u => u.Address, a =>
+            {
+                a.Property(a => a.Line1).IsRequired();
+                a.Property(a => a.City).IsRequired();
+                a.Property(a => a.State).HasMaxLength(2).IsRequired();
+                a.Property(a => a.ZipCode).HasMaxLength(5).IsRequired();
+            });
+
             base.OnModelCreating(builder);
         }
     }
