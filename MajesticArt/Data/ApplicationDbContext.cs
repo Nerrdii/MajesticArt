@@ -24,6 +24,8 @@ namespace MajesticArt.Data
             builder.Entity<Product>().Property(p => p.Price).IsRequired();
             builder.Entity<Product>().Property(p => p.Status).HasDefaultValue(ProductStatus.Active);
 
+            builder.Entity<Order>().Property(o => o.Status).HasDefaultValue(OrderStatus.Received);
+
             builder.Entity<ApplicationUser>().OwnsOne(u => u.Address, a =>
             {
                 a.Property(a => a.Line1).IsRequired();
