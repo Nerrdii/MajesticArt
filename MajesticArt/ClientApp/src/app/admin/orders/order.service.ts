@@ -13,4 +13,8 @@ export class OrderService {
   public getAll(): Observable<Order[]> {
     return this.http.get<Order[]>('/api/orders');
   }
+
+  public update(order: Order): Observable<Order> {
+    return this.http.put<Order>('/api/orders', order);
+  }
 }

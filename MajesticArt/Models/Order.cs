@@ -18,7 +18,7 @@ namespace MajesticArt.Models
 
     public enum OrderStatus
     {
-        Received,
+        Received = 1,
         Processing,
         Shipped
     }
