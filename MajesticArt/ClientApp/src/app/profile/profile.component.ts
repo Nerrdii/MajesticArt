@@ -10,8 +10,11 @@ import { UpdateEmail } from '../models/update-email.model';
 import { SnackBarService } from '../services/snack-bar.service';
 import { EditPasswordDialogComponent } from './edit-password-dialog/edit-password-dialog.component';
 import { UpdatePassword } from '../models/update-password.model';
+import { OrderService } from '../admin/orders/order.service';
+import { Order } from '../models/order.model';
 import { EditAddressDialogComponent } from './edit-address-dialog/edit-address-dialog.component';
 import { Address } from '../models/address.model';
+import { OrderProductsDialogComponent } from '../admin/orders/order-products-dialog/order-products-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -21,11 +24,21 @@ import { Address } from '../models/address.model';
 export class ProfileComponent implements OnInit {
   currentUser: Observable<User>;
   currentUserFullName: Observable<string>;
+  public displayedColumns = [
+    'createdAt',
+    'updatedAt',
+    'total',
+    'status',
+    'products',
+  ];
+  public data: Order[] = [];
+  public isLoading = true;
 
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit() {
@@ -33,6 +46,10 @@ export class ProfileComponent implements OnInit {
     this.currentUserFullName = this.currentUser.pipe(
       map((user) => user && user.firstName + ' ' + user.lastName)
     );
+    this.orderService.getByUserId().subscribe((orders) => {
+      this.data = orders;
+      this.isLoading = false;
+    });
   }
 
   changeEmail() {
@@ -103,5 +120,21 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
+  }
+
+  openProductsDialog(row: Order) {
+    this.dialog.open(OrderProductsDialogComponent, { data: row.products });
+  }
+
+  getOrderTotal(row: Order) {
+    let total = 0;
+
+    if (row.products) {
+      row.products.forEach((product) => {
+        total += product.price;
+      });
+    }
+
+    return total;
   }
 }

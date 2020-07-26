@@ -85,6 +85,8 @@ namespace MajesticArt.Controllers
             foreach (var id in productIds)
             {
                 var product = await productService.Get(int.Parse(id));
+                product.Status = ProductStatus.Sold;
+                await productService.Update(product);
                 products.Add(product);
             }
 

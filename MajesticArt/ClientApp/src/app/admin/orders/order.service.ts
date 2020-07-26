@@ -14,6 +14,10 @@ export class OrderService {
     return this.http.get<Order[]>('/api/orders');
   }
 
+  public getByUserId(): Observable<Order[]> {
+    return this.http.get<Order[]>('/api/orders/user');
+  }
+
   public update(order: Order): Observable<Order> {
     return this.http.put<Order>('/api/orders', order);
   }

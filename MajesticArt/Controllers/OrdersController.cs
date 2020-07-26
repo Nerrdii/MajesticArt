@@ -16,10 +16,12 @@ namespace MajesticArt.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IOrderService orderService;
 
-        public OrdersController(IOrderService orderService)
+        public OrdersController(UserManager<ApplicationUser> userManager, IOrderService orderService)
         {
+            this.userManager = userManager;
             this.orderService = orderService;
         }
 
@@ -28,6 +30,17 @@ namespace MajesticArt.Controllers
         public async Task<IActionResult> GetAll()
         {
             var orders = await orderService.GetAll();
+            return Ok(orders);
+        }
+
+        [HttpGet]
+        [Route("user")]
+        [Authorize]
+        public async Task<IActionResult> GetByUserId()
+        {
+            var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+            var orders = await orderService.GetByUserId(user.Id);
             return Ok(orders);
         }
 

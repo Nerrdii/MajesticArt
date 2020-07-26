@@ -36,7 +36,7 @@ namespace MajesticArt.Services
 
         public async Task<IEnumerable<Order>> GetByUserId(string userId)
         {
-            return await context.Orders.Where(order => order.UserId == userId).ToListAsync();
+            return await context.Orders.Include("Products").Where(order => order.UserId == userId).ToListAsync();
         }
 
         public async Task<Order> Update(Order order)
