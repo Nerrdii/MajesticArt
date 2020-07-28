@@ -22,6 +22,7 @@ import { RegisterComponent } from './register/register.component';
 import { SuccessComponent } from './success/success.component';
 import { CartComponent } from './cart/cart.component';
 import { EditAddressDialogComponent } from './profile/edit-address-dialog/edit-address-dialog.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { EditAddressDialogComponent } from './profile/edit-address-dialog/edit-a
     SuccessComponent,
     CartComponent,
     EditAddressDialogComponent,
+    OrderDetailsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -68,6 +70,11 @@ import { EditAddressDialogComponent } from './profile/edit-address-dialog/edit-a
       {
         path: 'cart',
         component: CartComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'orders/:id',
+        component: OrderDetailsComponent,
         canActivate: [AuthGuard],
       },
     ]),

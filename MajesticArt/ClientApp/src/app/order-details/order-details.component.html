@@ -1,0 +1,6 @@
+<div class="mt-5">
+  <h3>Order Details</h3>
+  <div *ngIf="order$ | async as order">
+    <p>ID: {{ order.id }}</p>
+  </div>
+</div>

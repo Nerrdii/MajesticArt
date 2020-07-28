@@ -26,7 +26,7 @@ namespace MajesticArt.Services
 
         public async Task<Order> Get(int id)
         {
-            return await context.Orders.FindAsync(id);
+            return await context.Orders.Include("User").Include("Products").FirstOrDefaultAsync(order => order.Id == id);
         }
 
         public async Task<IEnumerable<Order>> GetAll()

@@ -34,6 +34,29 @@ namespace MajesticArt.Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
+        [Authorize]
+        public async Task<IActionResult> Get(int id)
+        {
+            var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+            var roles = await userManager.GetRolesAsync(user);
+            var order = await orderService.Get(id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            if (roles.Contains("User") && order.UserId != user.Id)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(order);
+        }
+
+        [HttpGet]
         [Route("user")]
         [Authorize]
         public async Task<IActionResult> GetByUserId()
