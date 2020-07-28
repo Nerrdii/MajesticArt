@@ -19,18 +19,21 @@ namespace MajesticArt.Controllers
         private readonly IConfiguration configuration;
         private readonly IOrderService orderService;
         private readonly IProductService productService;
+        private readonly IEmailService emailService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public StripeWebhookController(
             IConfiguration configuration,
             IOrderService orderService,
             IProductService productService,
+            IEmailService emailService,
             UserManager<ApplicationUser> userManager
             )
         {
             this.configuration = configuration;
             this.orderService = orderService;
             this.productService = productService;
+            this.emailService = emailService;
             this.userManager = userManager;
         }
 
@@ -100,6 +103,14 @@ namespace MajesticArt.Controllers
             };
 
             await orderService.Add(order);
+            SendEmail(user, order);
+        }
+
+        private void SendEmail(ApplicationUser user, Order order)
+        {
+            string fullName = user.FirstName + " " + user.LastName;
+            string body = $"<h1>Order is confirmed</h1><a href=\"https://localhost:44301/orders/{order.Id}\">View order details</a>";
+            emailService.Send(user.Email, fullName, "Order Confirmation", body);
         }
     }
 }
