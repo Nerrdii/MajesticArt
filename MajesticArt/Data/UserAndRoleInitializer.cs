@@ -20,7 +20,15 @@ namespace MajesticArt.Data
                     UserName = "john.doe@gmail.com",
                     Email = "john.doe@gmail.com",
                     FirstName = "John",
-                    LastName = "Doe"
+                    LastName = "Doe",
+                    Address = new Address
+                    {
+                        Line1 = "123 Main St",
+                        Line2 = "",
+                        City = "Kansas City",
+                        State = "MO",
+                        ZipCode = "64105"
+                    }
                 };
 
                 var result = userManager.CreateAsync(user, "Passwd@1").Result;
@@ -38,7 +46,15 @@ namespace MajesticArt.Data
                     UserName = "will.smith@gmail.com",
                     Email = "will.smith@gmail.com",
                     FirstName = "Will",
-                    LastName = "Smith"
+                    LastName = "Smith",
+                    Address = new Address
+                    {
+                        Line1 = "1101 Innovation Parkway",
+                        Line2 = "",
+                        City = "Lee's Summit",
+                        State = "MO",
+                        ZipCode = "64086"
+                    }
                 };
 
                 var result = userManager.CreateAsync(user, "Passwd@1").Result;
