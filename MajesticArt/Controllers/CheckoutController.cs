@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using MajesticArt.Models;
@@ -51,7 +52,7 @@ namespace MajesticArt.Controllers
                                 { "UserId", user.Id }
                             }
                         },
-                        UnitAmount = (long)product.Price * 100
+                        UnitAmount = Convert.ToInt64(product.Price * 100)
                     },
                     Quantity = 1
                 });

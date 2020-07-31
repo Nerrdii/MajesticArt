@@ -21,7 +21,7 @@ namespace MajesticArt.Data
 
             builder.Entity<Product>().Property(p => p.Name).IsRequired();
             builder.Entity<Product>().Property(p => p.Description).IsRequired();
-            builder.Entity<Product>().Property(p => p.Price).IsRequired();
+            builder.Entity<Product>().Property(p => p.Price).IsRequired().HasColumnType("decimal(5,2)");
             builder.Entity<Product>().Property(p => p.Status).HasDefaultValue(ProductStatus.Active);
 
             builder.Entity<Order>().Property(o => o.Status).HasDefaultValue(OrderStatus.Received);
