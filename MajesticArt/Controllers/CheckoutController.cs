@@ -44,7 +44,7 @@ namespace MajesticArt.Controllers
                             Description = product.Description,
                             Images = new List<string>
                             {
-                                product.Image != string.Empty ? product.Image : "https://via.placeholder.com/150"
+                                product.Image != null && product.Image != string.Empty ? product.Image : "https://via.placeholder.com/150"
                             },
                             Metadata = new Dictionary<string, string>
                             {
