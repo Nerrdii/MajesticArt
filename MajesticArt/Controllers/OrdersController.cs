@@ -18,11 +18,13 @@ namespace MajesticArt.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOrderService orderService;
+        private readonly IEmailService emailService;
 
-        public OrdersController(UserManager<ApplicationUser> userManager, IOrderService orderService)
+        public OrdersController(UserManager<ApplicationUser> userManager, IOrderService orderService, IEmailService emailService)
         {
             this.userManager = userManager;
             this.orderService = orderService;
+            this.emailService = emailService;
         }
 
         [HttpGet]
@@ -71,6 +73,12 @@ namespace MajesticArt.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromBody] Order order)
         {
+            var user = order.User;
+            string fullName = user.FirstName + " " + user.LastName;
+            string body = $"<h1>Order status updated</h1><a href=\"https://localhost:44301/orders/{order.Id}\">View order details</a>";
+
+            emailService.Send(user.Email, fullName, "Order Update", body);
+
             await orderService.Update(order);
 
             return Ok(order);
