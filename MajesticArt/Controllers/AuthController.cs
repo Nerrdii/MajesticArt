@@ -111,10 +111,16 @@ namespace MajesticArt.Controllers
         public async Task<IActionResult> UpdateEmail(UpdateEmailDto updateEmailDto)
         {
             var user = await userManager.FindByEmailAsync(updateEmailDto.Email);
+            var newUser = await userManager.FindByEmailAsync(updateEmailDto.NewEmail);
 
             if (user == null)
             {
                 return NotFound();
+            }
+
+            if (newUser != null)
+            {
+                return BadRequest("New email already exists");
             }
 
             var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
