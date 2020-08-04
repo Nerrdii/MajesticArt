@@ -73,6 +73,8 @@ namespace MajesticArt
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -89,6 +91,12 @@ namespace MajesticArt
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Majestic Art API");
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
