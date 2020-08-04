@@ -1,7 +1,11 @@
 <div class="mt-5">
   <h3>Order Details</h3>
   <div *ngIf="order$ | async as order">
-    <p><strong>Shipping To</strong>:</p>
+    <h5>Shipping To:</h5>
+    <span>{{ order.user.firstName + ' ' + order.user.lastName }}</span>
+    <br />
+    <span>{{ order.user.email }}</span>
+    <br />
     <span
       >{{ order.user.address.line1 }} {{ order.user.address.line2 || '' }}</span
     >
@@ -10,5 +14,41 @@
       >{{ order.user.address.city }}, {{ order.user.address.state }}
       {{ order.user.address.zipCode }}</span
     >
+    <br />
+    <br />
+    <span>Order Total: {{ getTotal(order) | currency }}</span>
+    <br />
+    <span>Order Status: </span>
+    <span [ngSwitch]="order.status">
+      <span *ngSwitchCase="1">
+        Received
+      </span>
+      <span *ngSwitchCase="2">
+        Processing
+      </span>
+      <span *ngSwitchCase="3">Shipped</span>
+      <span *ngSwitchDefault>
+        Processing
+      </span>
+    </span>
+    <br />
+    <p>Last Updated: {{ order.updatedAt | date: 'short' }}</p>
+    <h5>Products Ordered:</h5>
+    <div class="row">
+      <div *ngFor="let product of order.products" class="col-4">
+        <mat-card class="mb-5">
+          <mat-card-header>
+            <mat-card-title>{{ product.name }} </mat-card-title>
+            <mat-card-subtitle>{{
+              product.price | currency
+            }}</mat-card-subtitle>
+          </mat-card-header>
+          <img *ngIf="product.image" [src]="product.image" class="mb-3" />
+          <mat-card-content>
+            <p>{{ product.description }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
   </div>
 </div>

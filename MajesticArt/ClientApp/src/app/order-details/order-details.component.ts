@@ -25,6 +25,17 @@ export class OrderDetailsComponent implements OnInit {
         return this.orderService.get(id);
       })
     );
-    this.order$.subscribe((order) => console.log(order));
+  }
+
+  getTotal(order: Order) {
+    let total = 0;
+
+    if (order.products) {
+      order.products.forEach((product) => {
+        total += product.price;
+      });
+    }
+
+    return total;
   }
 }
