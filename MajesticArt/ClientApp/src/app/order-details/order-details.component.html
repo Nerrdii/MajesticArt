@@ -2,7 +2,7 @@
   <h3>Order Details</h3>
   <div *ngIf="order$ | async as order">
     <h5>Shipping To:</h5>
-    <span>{{ order.user.firstName + ' ' + order.user.lastName }}</span>
+    <span>{{ order.user.fullName }}</span>
     <br />
     <span>{{ order.user.email }}</span>
     <br />

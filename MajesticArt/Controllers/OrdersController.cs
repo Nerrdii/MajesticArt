@@ -74,10 +74,9 @@ namespace MajesticArt.Controllers
         public async Task<IActionResult> Update([FromBody] Order order)
         {
             var user = order.User;
-            string fullName = user.FirstName + " " + user.LastName;
             string body = $"<h1>Order status updated</h1><a href=\"https://localhost:44301/orders/{order.Id}\">View order details</a>";
 
-            emailService.Send(user.Email, fullName, "Order Update", body);
+            emailService.Send(user.Email, user.FullName, "Order Update", body);
 
             await orderService.Update(order);
 

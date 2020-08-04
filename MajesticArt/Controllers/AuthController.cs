@@ -63,6 +63,7 @@ namespace MajesticArt.Controllers
                 {
                     FirstName = user.FirstName,
                     LastName = user.LastName,
+                    FullName = user.FullName,
                     Email = user.Email,
                     Roles = roles,
                     Address = user.Address,
@@ -95,6 +96,7 @@ namespace MajesticArt.Controllers
                 {
                     FirstName = user.FirstName,
                     LastName = user.LastName,
+                    FullName = user.FullName,
                     Email = user.Email,
                     Roles = roles,
                     Address = user.Address,

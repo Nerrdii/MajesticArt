@@ -17,7 +17,7 @@ export class NavMenuComponent implements OnInit {
     this.authService.currentUser.subscribe((user) => {
       this.authenticated = user != null;
       this.isAdmin = user && user.roles.includes('Admin');
-      this.name = user && user.firstName + ' ' + user.lastName;
+      this.name = user && user.fullName;
     });
   }
 

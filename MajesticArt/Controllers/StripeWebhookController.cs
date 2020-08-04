@@ -108,9 +108,8 @@ namespace MajesticArt.Controllers
 
         private void SendEmail(ApplicationUser user, Order order)
         {
-            string fullName = user.FirstName + " " + user.LastName;
             string body = $"<h1>Order is confirmed</h1><a href=\"https://localhost:44301/orders/{order.Id}\">View order details</a>";
-            emailService.Send(user.Email, fullName, "Order Confirmation", body);
+            emailService.Send(user.Email, user.FullName, "Order Confirmation", body);
         }
     }
 }
