@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
     'updatedAt',
     'total',
     'status',
-    'products',
+    'details',
   ];
   public data: Order[] = [];
   public isLoading = true;

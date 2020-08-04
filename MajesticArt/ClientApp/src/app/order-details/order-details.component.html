@@ -1,6 +1,14 @@
 <div class="mt-5">
   <h3>Order Details</h3>
   <div *ngIf="order$ | async as order">
-    <p>ID: {{ order.id }}</p>
+    <p><strong>Shipping To</strong>:</p>
+    <span
+      >{{ order.user.address.line1 }} {{ order.user.address.line2 || '' }}</span
+    >
+    <br />
+    <span
+      >{{ order.user.address.city }}, {{ order.user.address.state }}
+      {{ order.user.address.zipCode }}</span
+    >
   </div>
 </div>
