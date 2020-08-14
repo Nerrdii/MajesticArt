@@ -16,7 +16,7 @@
 
     public enum ProductStatus
     {
-        Active,
+        Active = 1,
         Sold
     }
 }

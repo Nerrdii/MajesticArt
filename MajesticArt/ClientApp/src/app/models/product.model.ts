@@ -13,6 +13,6 @@ export interface Product {
 }
 
 export enum ProductStatus {
-  Active,
+  Active = 1,
   Sold,
 }

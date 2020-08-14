@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit {
   categories: Observable<Category[]>;
   selectedCategoryId: BehaviorSubject<number> = new BehaviorSubject(0);
   sortBy: BehaviorSubject<string> = new BehaviorSubject('');
+  selectedStatus: BehaviorSubject<ProductStatus> = new BehaviorSubject(
+    ProductStatus.Active
+  );
 
   ACTIVE = ProductStatus.Active;
   SOLD = ProductStatus.Sold;
@@ -43,14 +46,19 @@ export class HomeComponent implements OnInit {
       this.initialProducts,
       this.selectedCategoryId.asObservable(),
       this.sortBy.asObservable(),
+      this.selectedStatus.asObservable(),
       this.cartService.items$,
     ]).pipe(
-      map(([products, categoryId, sortBy, cartItems]) => {
-        const first = categoryId
-          ? products.filter((product) => product.categoryId === categoryId)
+      map(([products, categoryId, sortBy, status, cartItems]) => {
+        const first = status
+          ? products.filter((product) => product.status === status)
           : products;
 
-        const second = first.map((product) => {
+        const second = categoryId
+          ? first.filter((product) => product.categoryId === categoryId)
+          : first;
+
+        const third = second.map((product) => {
           cartItems.forEach((p) => {
             if (p.id === product.id) {
               product.inCart = true;
@@ -61,12 +69,12 @@ export class HomeComponent implements OnInit {
         });
 
         if (sortBy === 'lth') {
-          return second.sort((a, b) => a.price - b.price);
+          return third.sort((a, b) => a.price - b.price);
         } else if (sortBy === 'htl') {
-          return second.sort((a, b) => b.price - a.price);
+          return third.sort((a, b) => b.price - a.price);
         }
 
-        return second.sort((a, b) =>
+        return third.sort((a, b) =>
           a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
         );
       })
@@ -79,6 +87,10 @@ export class HomeComponent implements OnInit {
 
   onSortByChange(sortBy: string) {
     this.sortBy.next(sortBy);
+  }
+
+  onStatusChange(status: ProductStatus) {
+    this.selectedStatus.next(status);
   }
 
   addToCart(product: Product) {

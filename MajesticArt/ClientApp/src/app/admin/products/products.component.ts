@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Product } from 'src/app/models/product.model';
+import { Product, ProductStatus } from 'src/app/models/product.model';
 import { ProductService } from './product.service';
 import { ProductEditDialogComponent } from './product-edit-dialog/product-edit-dialog.component';
 import { ProductDeleteDialogComponent } from './product-delete-dialog/product-delete-dialog.component';
@@ -19,10 +19,13 @@ export class ProductsComponent implements OnInit {
     'description',
     'price',
     'category',
+    'status',
     'actions',
   ];
   public data: Product[] = [];
   public isLoading = true;
+  public ACTIVE = ProductStatus.Active;
+  public SOLD = ProductStatus.Sold;
 
   constructor(
     private dialog: MatDialog,
@@ -76,6 +79,7 @@ export class ProductsComponent implements OnInit {
           image: result.image,
           price: result.price,
           id: row.id,
+          status: row.status,
         };
         this.productService.update(product).subscribe(() => {
           this.productService.getAll().subscribe((products) => {
