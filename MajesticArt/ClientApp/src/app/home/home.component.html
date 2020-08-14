@@ -32,6 +32,14 @@
         <mat-option [value]="ACTIVE">Active</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field appearance="outline" class="mb-3 float-right">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        [ngModel]="searchTerm"
+        (ngModelChange)="onSearchChange($event)"
+      />
+    </mat-form-field>
   </div>
   <div class="row">
     <div *ngFor="let product of visibleProducts | async" class="col-4">

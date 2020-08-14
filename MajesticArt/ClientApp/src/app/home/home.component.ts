@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   selectedStatus: BehaviorSubject<ProductStatus> = new BehaviorSubject(
     ProductStatus.Active
   );
+  searchTerm: BehaviorSubject<string> = new BehaviorSubject('');
 
   ACTIVE = ProductStatus.Active;
   SOLD = ProductStatus.Sold;
@@ -47,9 +48,10 @@ export class HomeComponent implements OnInit {
       this.selectedCategoryId.asObservable(),
       this.sortBy.asObservable(),
       this.selectedStatus.asObservable(),
+      this.searchTerm.asObservable(),
       this.cartService.items$,
     ]).pipe(
-      map(([products, categoryId, sortBy, status, cartItems]) => {
+      map(([products, categoryId, sortBy, status, searchTerm, cartItems]) => {
         const first = status
           ? products.filter((product) => product.status === status)
           : products;
@@ -68,13 +70,21 @@ export class HomeComponent implements OnInit {
           return product;
         });
 
+        const fourth = searchTerm
+          ? third.filter((product) =>
+              product.name
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase().trim())
+            )
+          : third;
+
         if (sortBy === 'lth') {
-          return third.sort((a, b) => a.price - b.price);
+          return fourth.sort((a, b) => a.price - b.price);
         } else if (sortBy === 'htl') {
-          return third.sort((a, b) => b.price - a.price);
+          return fourth.sort((a, b) => b.price - a.price);
         }
 
-        return third.sort((a, b) =>
+        return fourth.sort((a, b) =>
           a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
         );
       })
@@ -91,6 +101,10 @@ export class HomeComponent implements OnInit {
 
   onStatusChange(status: ProductStatus) {
     this.selectedStatus.next(status);
+  }
+
+  onSearchChange(searchTerm: string) {
+    this.searchTerm.next(searchTerm);
   }
 
   addToCart(product: Product) {
