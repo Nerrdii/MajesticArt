@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         () => this.router.navigateByUrl(this.return),
-        (err) => this.snackBarService.openSnackBar(err.error, null, 3000)
+        (err) => this.snackBarService.open(err.error)
       );
     }
   }

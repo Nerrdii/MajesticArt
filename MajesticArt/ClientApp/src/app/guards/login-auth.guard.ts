@@ -30,11 +30,7 @@ export class LoginAuthGuard implements CanActivate {
     | UrlTree {
     if (this.authService.currentUserValue) {
       this.router.navigate(['/']);
-      this.snackBarService.openSnackBar(
-        'You are already logged in',
-        null,
-        3000
-      );
+      this.snackBarService.open('You are already logged in');
       return false;
     } else {
       return true;

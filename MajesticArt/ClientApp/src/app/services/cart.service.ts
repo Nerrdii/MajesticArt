@@ -34,10 +34,9 @@ export class CartService {
   addToCart(product: Product) {
     this.items = [...this.items, product];
     this.itemsSubject.next(this.items);
-    const snackBarRef = this.snackBarService.openSnackBar(
+    const snackBarRef = this.snackBarService.open(
       'Item has been added to cart',
-      'View cart',
-      3000
+      'View cart'
     );
     snackBarRef.onAction().subscribe(() => {
       this.router.navigate(['cart']);

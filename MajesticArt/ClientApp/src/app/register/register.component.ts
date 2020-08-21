@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe(
         () => this.router.navigateByUrl('/'),
-        (err) => this.snackBarService.openSnackBar(err.error, null, 3000)
+        (err) => this.snackBarService.open(err.error)
       );
     }
   }

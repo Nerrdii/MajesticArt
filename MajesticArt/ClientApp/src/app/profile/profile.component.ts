@@ -65,14 +65,12 @@ export class ProfileComponent implements OnInit {
         this.authService.updateEmail(updateEmail).subscribe(
           () => {
             this.authService.logout();
-            this.snackBarService.openSnackBar(
-              'Email successfully updated, please login again',
-              null,
-              3000
+            this.snackBarService.open(
+              'Email successfully updated, please login again'
             );
           },
           (err) => {
-            this.snackBarService.openSnackBar(err.error, null, 3000);
+            this.snackBarService.open(err.error);
           }
         );
       }
@@ -91,14 +89,12 @@ export class ProfileComponent implements OnInit {
         this.authService.updatePassword(updatePassword).subscribe(
           () => {
             this.authService.logout();
-            this.snackBarService.openSnackBar(
-              'Password successfully updated, please login again',
-              null,
-              3000
+            this.snackBarService.open(
+              'Password successfully updated, please login again'
             );
           },
           (err) => {
-            this.snackBarService.openSnackBar(err.error, null, 3000);
+            this.snackBarService.open(err.error, null, 3000);
           }
         );
       }
@@ -112,11 +108,7 @@ export class ProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: Address) => {
       if (result) {
         this.authService.updateAddress(result).subscribe(() => {
-          this.snackBarService.openSnackBar(
-            'Address updated successfully',
-            null,
-            3000
-          );
+          this.snackBarService.open('Address updated successfully');
         });
       }
     });

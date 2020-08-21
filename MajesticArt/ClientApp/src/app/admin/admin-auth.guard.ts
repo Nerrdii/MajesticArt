@@ -31,11 +31,7 @@ export class AdminAuthGuard implements CanActivate {
         return true;
       } else {
         this.router.navigate(['/']);
-        this.snackBarService.openSnackBar(
-          'You are unauthorized to view that page',
-          null,
-          3000
-        );
+        this.snackBarService.open('You are unauthorized to view that page');
         return false;
       }
     } else {
