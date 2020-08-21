@@ -21,9 +21,6 @@ export class HomeComponent implements OnInit {
   categories: Observable<Category[]>;
   selectedCategoryId: BehaviorSubject<number> = new BehaviorSubject(0);
   sortBy: BehaviorSubject<string> = new BehaviorSubject('');
-  selectedStatus: BehaviorSubject<ProductStatus> = new BehaviorSubject(
-    ProductStatus.Active
-  );
   searchTerm: BehaviorSubject<string> = new BehaviorSubject('');
 
   ACTIVE = ProductStatus.Active;
@@ -47,14 +44,13 @@ export class HomeComponent implements OnInit {
       this.initialProducts,
       this.selectedCategoryId.asObservable(),
       this.sortBy.asObservable(),
-      this.selectedStatus.asObservable(),
       this.searchTerm.asObservable(),
       this.cartService.items$,
     ]).pipe(
-      map(([products, categoryId, sortBy, status, searchTerm, cartItems]) => {
-        const first = status
-          ? products.filter((product) => product.status === status)
-          : products;
+      map(([products, categoryId, sortBy, searchTerm, cartItems]) => {
+        const first = products.filter(
+          (product) => product.status === ProductStatus.Active
+        );
 
         const second = categoryId
           ? first.filter((product) => product.categoryId === categoryId)
@@ -97,10 +93,6 @@ export class HomeComponent implements OnInit {
 
   onSortByChange(sortBy: string) {
     this.sortBy.next(sortBy);
-  }
-
-  onStatusChange(status: ProductStatus) {
-    this.selectedStatus.next(status);
   }
 
   onSearchChange(searchTerm: string) {
