@@ -68,7 +68,6 @@ namespace MajesticArt
             services.AddControllersWithViews()
                 .AddNewtonsoftJson();
 
-            services.AddRazorPages();
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -112,7 +111,6 @@ namespace MajesticArt
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapRazorPages();
             });
 
             app.UseSpa(spa =>
