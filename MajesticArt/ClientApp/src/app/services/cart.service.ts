@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { loadStripe } from '@stripe/stripe-js';
 
 import { Product } from '../models/product.model';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +22,11 @@ export class CartService {
     localStorage.setItem('cartItems', JSON.stringify(products));
   }
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private snackBarService: SnackBarService
+  ) {
     this.itemsSubject.next(this.items);
     this.items$ = this.itemsSubject.asObservable();
   }
@@ -28,6 +34,14 @@ export class CartService {
   addToCart(product: Product) {
     this.items = [...this.items, product];
     this.itemsSubject.next(this.items);
+    const snackBarRef = this.snackBarService.openSnackBar(
+      'Item has been added to cart',
+      'View cart',
+      3000
+    );
+    snackBarRef.onAction().subscribe(() => {
+      this.router.navigate(['cart']);
+    });
   }
 
   removeProduct(productId: number) {
