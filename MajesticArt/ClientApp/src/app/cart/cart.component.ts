@@ -4,6 +4,7 @@ import { Product } from '../models/product.model';
 import { CartService } from '../services/cart.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,10 +14,18 @@ import { tap } from 'rxjs/operators';
 export class CartComponent implements OnInit {
   public items: Observable<Product[]>;
   public subtotal = 0;
+  public authenticated: boolean;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
+    this.authService.currentUser.subscribe((user) => {
+      this.authenticated = user != null;
+    });
+
     this.items = this.cartService.items$.pipe(
       tap((products) => {
         this.subtotal = 0;

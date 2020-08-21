@@ -2,14 +2,14 @@
   <mat-toolbar-row>
     <a routerLink="/">Majestic Art</a>
     <span class="spacer"></span>
+    <button mat-icon-button routerLink="/cart" class="mr-3">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
     <div *ngIf="!authenticated">
       <a routerLink="/register" class="mr-3">Register</a>
       <a routerLink="/login">Login</a>
     </div>
     <div *ngIf="authenticated">
-      <button mat-icon-button routerLink="/cart">
-        <mat-icon>shopping_cart</mat-icon>
-      </button>
       <button mat-button [matMenuTriggerFor]="menu">
         {{ name }} <mat-icon>expand_more</mat-icon>
       </button>

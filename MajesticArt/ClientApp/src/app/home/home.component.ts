@@ -23,9 +23,6 @@ export class HomeComponent implements OnInit {
   sortBy: BehaviorSubject<string> = new BehaviorSubject('');
   searchTerm: BehaviorSubject<string> = new BehaviorSubject('');
 
-  ACTIVE = ProductStatus.Active;
-  SOLD = ProductStatus.Sold;
-
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,

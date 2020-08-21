@@ -70,7 +70,6 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
       {
         path: 'cart',
         component: CartComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'orders/:id',

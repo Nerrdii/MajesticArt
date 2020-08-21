@@ -21,13 +21,22 @@
       </mat-card>
     </div>
   </div>
-  <button
-    mat-button
-    mat-flat-button
-    class="mb-5"
-    color="primary"
-    (click)="checkout()"
-  >
-    Checkout
-  </button>
+  <div *ngIf="authenticated">
+    <button
+      mat-button
+      mat-flat-button
+      class="mb-5"
+      color="primary"
+      (click)="checkout()"
+    >
+      Checkout
+    </button>
+  </div>
+  <div *ngIf="!authenticated">
+    <p>
+      <a routerLink="/login" [queryParams]="{ return: '/cart' }">Login</a> or
+      <a routerLink="/register" [queryParams]="{ return: '/cart' }">register</a>
+      to checkout
+    </p>
+  </div>
 </div>
