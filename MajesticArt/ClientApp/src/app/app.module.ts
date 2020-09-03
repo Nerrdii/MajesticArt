@@ -23,6 +23,7 @@ import { SuccessComponent } from './success/success.component';
 import { CartComponent } from './cart/cart.component';
 import { EditAddressDialogComponent } from './profile/edit-address-dialog/edit-address-dialog.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   entryComponents: [
     EditEmailDialogComponent,

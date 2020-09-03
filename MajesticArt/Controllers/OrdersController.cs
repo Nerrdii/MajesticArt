@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using MajesticArt.Models;
 using MajesticArt.Services;
@@ -42,7 +39,6 @@ namespace MajesticArt.Controllers
         {
             var email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
             var user = await userManager.FindByEmailAsync(email);
-            var roles = await userManager.GetRolesAsync(user);
             var order = await orderService.Get(id);
 
             if (order == null)
@@ -50,7 +46,7 @@ namespace MajesticArt.Controllers
                 return NotFound();
             }
 
-            if (roles.Contains("User") && order.UserId != user.Id)
+            if (order.UserId != user.Id)
             {
                 return Unauthorized();
             }
