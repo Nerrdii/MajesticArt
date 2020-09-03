@@ -10,11 +10,11 @@ import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-store',
+  templateUrl: './store.component.html',
+  styleUrls: ['./store.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class StoreComponent implements OnInit {
   authenticated: boolean;
   initialProducts: Observable<Product[]>;
   visibleProducts: Observable<Product[]>;

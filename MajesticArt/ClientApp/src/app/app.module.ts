@@ -10,7 +10,7 @@ import { AdminModule } from './admin/admin.module';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
+import { StoreComponent } from './store/store.component';
 import { LoginComponent } from './login/login.component';
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
@@ -29,7 +29,7 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
+    StoreComponent,
     LoginComponent,
     ProfileComponent,
     EditEmailDialogComponent,
@@ -47,7 +47,8 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', redirectTo: '/store', pathMatch: 'full' },
+      { path: 'store', component: StoreComponent },
       {
         path: 'login',
         component: LoginComponent,
