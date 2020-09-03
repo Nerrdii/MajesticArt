@@ -25,7 +25,7 @@ Majestic Art is a full-stack eCommerce application for selling unique pieces of 
 
 1. Sign up for a [Stripe](https://stripe.com/) account
 2. Locate your API keys in the dashboard under Developers > API Keys
-3. In `appsettings.json` replace the publishable and secret keys with your own
+3. Copy these keys for setting up user secrets
 
 ### Stripe CLI
 
@@ -35,7 +35,29 @@ Majestic Art is a full-stack eCommerce application for selling unique pieces of 
 
 > stripe.exe listen --forward-to <https://localhost:44301/api/stripewebhook>
 
-4. In `appsettings.json` replace the webhook secret in the Stripe section with the one from the CLI
+4. Copy the webhook secret for the next step
+
+### User Secrets
+
+1. In Visual Studio 2019 right-click on the project and select "Manage User Secrets"
+2. Replace the contents with the following, putting in your values for Stripe, Gmail, etc.
+
+```json
+{
+  "JWT": {
+    "SecretKey": "<SecretKey>"
+  },
+  "Stripe": {
+    "PublishableKey": "<PublishableKey>",
+    "SecretKey": "<SecretKey>",
+    "WebhookSecret": "<WebhookSecret>"
+  },
+  "Gmail": {
+    "Username": "<Username>",
+    "Password": "<Password>"
+  }
+}
+```
 
 ### Server
 
