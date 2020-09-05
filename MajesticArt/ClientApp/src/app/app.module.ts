@@ -24,6 +24,7 @@ import { CartComponent } from './cart/cart.component';
 import { EditAddressDialogComponent } from './profile/edit-address-dialog/edit-address-dialog.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
     CartComponent,
     EditAddressDialogComponent,
     OrderDetailsComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -47,7 +49,7 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', redirectTo: '/store', pathMatch: 'full' },
+      { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'store', component: StoreComponent },
       {
         path: 'login',
