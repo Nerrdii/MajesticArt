@@ -16,20 +16,28 @@
     >
     <br />
     <br />
-    <span>Order Total: {{ getTotal(order) | currency }}</span>
+    <h5>Cost</h5>
+    <span *ngIf="subtotal$ | async as subtotal">
+      Subtotal: {{ subtotal | currency }}
+    </span>
     <br />
+    <span *ngIf="taxes$ | async as taxes">Taxes: {{ taxes | currency }}</span>
+    <br />
+    <span *ngIf="shippingRate$ | async as shippingRate">
+      Shipping:
+      {{ (isFreeShipping$ | async) ? 'Free' : (shippingRate | currency) }}
+    </span>
+    <br />
+    <span *ngIf="total$ | async as total">Total: {{ total | currency }}</span>
+    <br />
+    <br />
+    <h5>Status</h5>
     <span>Order Status: </span>
     <span [ngSwitch]="order.status">
-      <span *ngSwitchCase="1">
-        Received
-      </span>
-      <span *ngSwitchCase="2">
-        Processing
-      </span>
+      <span *ngSwitchCase="1"> Received </span>
+      <span *ngSwitchCase="2"> Processing </span>
       <span *ngSwitchCase="3">Shipped</span>
-      <span *ngSwitchDefault>
-        Processing
-      </span>
+      <span *ngSwitchDefault> Processing </span>
     </span>
     <br />
     <p>Last Updated: {{ order.updatedAt | date: 'short' }}</p>
