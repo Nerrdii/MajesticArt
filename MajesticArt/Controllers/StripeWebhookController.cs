@@ -20,6 +20,7 @@ namespace MajesticArt.Controllers
         private readonly IOrderService orderService;
         private readonly IProductService productService;
         private readonly IEmailService emailService;
+        private readonly ITaxService taxService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public StripeWebhookController(
@@ -27,6 +28,7 @@ namespace MajesticArt.Controllers
             IOrderService orderService,
             IProductService productService,
             IEmailService emailService,
+            ITaxService taxService,
             UserManager<ApplicationUser> userManager
             )
         {
@@ -34,6 +36,7 @@ namespace MajesticArt.Controllers
             this.orderService = orderService;
             this.productService = productService;
             this.emailService = emailService;
+            this.taxService = taxService;
             this.userManager = userManager;
         }
 
@@ -96,6 +99,7 @@ namespace MajesticArt.Controllers
             Order order = new Order
             {
                 Products = products,
+                Total = taxService.GetTotalCostDetails(products).Total,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
                 User = user,
