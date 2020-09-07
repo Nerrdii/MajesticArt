@@ -41,29 +41,5 @@ namespace MajesticArt.Controllers
 
             return Ok(totalCostDto);
         }
-
-        [HttpGet]
-        [Route("tax-rate")]
-        public IActionResult GetTaxRate()
-        {
-            decimal taxRate = decimal.Parse(configuration["Business:TaxRate"]) / 100;
-            return Ok(taxRate);
-        }
-
-        [HttpGet]
-        [Route("shipping-rate")]
-        public IActionResult GetShippingRate()
-        {
-            decimal shippingRate = decimal.Parse(configuration["Business:ShippingRate"]);
-            return Ok(shippingRate);
-        }
-
-        [HttpGet]
-        [Route("free-shipping-min")]
-        public IActionResult GetFreeShippingMinimum()
-        {
-            int freeShippingMin = int.Parse(configuration["Business:FreeShippingMin"]);
-            return Ok(freeShippingMin);
-        }
     }
 }

@@ -50,10 +50,6 @@ export class OrdersComponent implements OnInit {
     this.dialog.open(CustomerDetailsDialogComponent, { data: row.user });
   }
 
-  getOrderTotal(row: Order) {
-    return this.taxService.getTotal(row.products);
-  }
-
   updateOrderStatus(row: Order) {
     const dialogRef = this.dialog.open(UpdateOrderDialogComponent, {
       data: row.status,
