@@ -39,6 +39,7 @@ namespace MajesticArt
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IEmailService, GoogleEmailService>();
             services.AddScoped<ITaxService, TaxService>();
+            services.AddScoped<IStripeService, StripeService>();
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.Password.RequiredLength = 8)
                 .AddRoles<IdentityRole>()
