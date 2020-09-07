@@ -3,15 +3,15 @@
   <p>You currently have no items in your cart</p>
 </div>
 <div *ngIf="(items | async).length">
-  <p *ngIf="subtotal$ | async as subtotal">
-    Subtotal: {{ subtotal | currency }}
-  </p>
-  <p *ngIf="taxes$ | async as taxes">Taxes: {{ taxes | currency }}</p>
-  <p *ngIf="shippingRate$ | async as shippingRate">
-    Shipping:
-    {{ (isFreeShipping$ | async) ? 'Free' : (shippingRate | currency) }}
-  </p>
-  <p *ngIf="total$ | async as total">Total: {{ total | currency }}</p>
+  <div *ngIf="totalCost$ | async as totalCost">
+    <p>Subtotal: {{ totalCost.subtotal | currency }}</p>
+    <p>Taxes: {{ totalCost.tax | currency }}</p>
+    <p>
+      Shipping:
+      {{ totalCost.shipping ? (totalCost.shipping | currency) : 'Free' }}
+    </p>
+    <p>Total: {{ totalCost.total | currency }}</p>
+  </div>
   <div class="row">
     <div *ngFor="let product of items | async" class="col-4">
       <mat-card class="mb-5">

@@ -4,6 +4,7 @@ import { User } from './user.model';
 export interface Order {
   id?: number;
   products: Product[];
+  total: number;
   status: OrderStatus;
   userId: string;
   user: User;

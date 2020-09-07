@@ -4,12 +4,17 @@ import { of } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
 import { Product } from '../models/product.model';
+import { TotalCost } from '../models/total-cost.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaxService {
   constructor(private http: HttpClient) {}
+
+  public getTotalCostDetails(productIds: string) {
+    return this.http.get<TotalCost>(`/api/tax/total?productIds=${productIds}`);
+  }
 
   public getSubtotal(products: Product[]) {
     let subtotal = 0;
@@ -28,19 +33,19 @@ export class TaxService {
   }
 
   public getTotal(products: Product[]) {
-    const tax = this.getTax(products);
-    const subtotal = this.getSubtotal(products);
-    const shippingRate = this.getShippingRate();
+    const tax$ = this.getTax(products);
+    const subtotal$ = this.getSubtotal(products);
+    const shippingRate$ = this.getShippingRate();
+    const isFreeShipping$ = this.isFreeShipping(products);
 
-    const isFreeShipping = this.isFreeShipping(products);
-    const totalBeforeShipping = subtotal.pipe(
-      switchMap((subtotal) => tax.pipe(map((tax) => subtotal + tax)))
+    const totalBeforeShipping = subtotal$.pipe(
+      switchMap((subtotal) => tax$.pipe(map((tax) => subtotal + tax)))
     );
     const totalWithShipping = totalBeforeShipping.pipe(
-      switchMap((total) => shippingRate.pipe(map((rate) => total + rate)))
+      switchMap((total) => shippingRate$.pipe(map((rate) => total + rate)))
     );
 
-    return isFreeShipping.pipe(
+    return isFreeShipping$.pipe(
       switchMap((isFreeShipping) =>
         isFreeShipping ? totalBeforeShipping : totalWithShipping
       )
@@ -48,8 +53,9 @@ export class TaxService {
   }
 
   public isFreeShipping(products: Product[]) {
-    const subtotal = this.getSubtotal(products);
-    return subtotal.pipe(
+    const subtotal$ = this.getSubtotal(products);
+
+    return subtotal$.pipe(
       switchMap((subtotal) =>
         this.getFreeShippingMin().pipe(
           map((freeShippingMin) => subtotal >= freeShippingMin)

@@ -17,19 +17,18 @@
     <br />
     <br />
     <h5>Cost</h5>
-    <span *ngIf="subtotal$ | async as subtotal">
-      Subtotal: {{ subtotal | currency }}
-    </span>
-    <br />
-    <span *ngIf="taxes$ | async as taxes">Taxes: {{ taxes | currency }}</span>
-    <br />
-    <span *ngIf="shippingRate$ | async as shippingRate">
-      Shipping:
-      {{ (isFreeShipping$ | async) ? 'Free' : (shippingRate | currency) }}
-    </span>
-    <br />
-    <span *ngIf="total$ | async as total">Total: {{ total | currency }}</span>
-    <br />
+    <div *ngIf="totalCost$ | async as totalCost">
+      <span>Subtotal: {{ totalCost.subtotal | currency }}</span>
+      <br />
+      <span>Taxes: {{ totalCost.tax | currency }}</span>
+      <br />
+      <span>
+        Shipping:
+        {{ totalCost.shipping ? (totalCost.shipping | currency) : 'Free' }}
+      </span>
+      <br />
+      <span>Total: {{ totalCost.total | currency }}</span>
+    </div>
     <br />
     <h5>Status</h5>
     <span>Order Status: </span>

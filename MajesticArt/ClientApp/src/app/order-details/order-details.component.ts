@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { OrderService } from '../admin/orders/order.service';
 import { TaxService } from '../services/tax.service';
+import { TotalCost } from '../models/total-cost.model';
 
 @Component({
   selector: 'app-order-details',
@@ -13,11 +14,7 @@ import { TaxService } from '../services/tax.service';
 })
 export class OrderDetailsComponent implements OnInit {
   public order$: Observable<Order>;
-  public subtotal$: Observable<number>;
-  public taxes$: Observable<number>;
-  public isFreeShipping$: Observable<boolean>;
-  public shippingRate$: Observable<number>;
-  public total$: Observable<number>;
+  public totalCost$: Observable<TotalCost>;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,8 +23,6 @@ export class OrderDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.shippingRate$ = this.taxService.getShippingRate();
-
     this.order$ = this.route.paramMap.pipe(
       switchMap((params) => {
         const id = +params.get('id');
@@ -35,10 +30,11 @@ export class OrderDetailsComponent implements OnInit {
       }),
       tap((order) => {
         const { products } = order;
-        this.subtotal$ = this.taxService.getSubtotal(products);
-        this.taxes$ = this.taxService.getTax(products);
-        this.total$ = this.taxService.getTotal(products);
-        this.isFreeShipping$ = this.taxService.isFreeShipping(products);
+        const productIds = products
+          .map((product) => product.id)
+          .join(',')
+          .toString();
+        this.totalCost$ = this.taxService.getTotalCostDetails(productIds);
       })
     );
   }

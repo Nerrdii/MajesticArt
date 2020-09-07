@@ -6,6 +6,7 @@ import { Product } from '../models/product.model';
 import { CartService } from '../services/cart.service';
 import { AuthService } from '../services/auth.service';
 import { TaxService } from '../services/tax.service';
+import { TotalCost } from '../models/total-cost.model';
 
 @Component({
   selector: 'app-cart',
@@ -14,11 +15,7 @@ import { TaxService } from '../services/tax.service';
 })
 export class CartComponent implements OnInit {
   public items: Observable<Product[]>;
-  public subtotal$: Observable<number>;
-  public taxes$: Observable<number>;
-  public isFreeShipping$: Observable<boolean>;
-  public shippingRate$: Observable<number>;
-  public total$: Observable<number>;
+  public totalCost$: Observable<TotalCost>;
   public authenticated: boolean;
 
   constructor(
@@ -32,14 +29,13 @@ export class CartComponent implements OnInit {
       this.authenticated = user != null;
     });
 
-    this.shippingRate$ = this.taxService.getShippingRate();
-
     this.items = this.cartService.items$.pipe(
       tap((products) => {
-        this.subtotal$ = this.taxService.getSubtotal(products);
-        this.taxes$ = this.taxService.getTax(products);
-        this.total$ = this.taxService.getTotal(products);
-        this.isFreeShipping$ = this.taxService.isFreeShipping(products);
+        const productIds = products
+          .map((product) => product.id)
+          .join(',')
+          .toString();
+        this.totalCost$ = this.taxService.getTotalCostDetails(productIds);
       })
     );
   }
