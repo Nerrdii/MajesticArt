@@ -25,6 +25,7 @@ namespace MajesticArt.Data
             builder.Entity<Product>().Property(p => p.Status).HasDefaultValue(ProductStatus.Active);
 
             builder.Entity<Order>().Property(o => o.Status).HasDefaultValue(OrderStatus.Received);
+            builder.Entity<Order>().Property(o => o.Total).HasColumnType("decimal(5,2)");
 
             builder.Entity<ApplicationUser>().OwnsOne(u => u.Address, a =>
             {
