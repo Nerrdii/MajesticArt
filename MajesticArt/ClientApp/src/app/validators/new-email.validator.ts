@@ -3,11 +3,11 @@ import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { of } from 'rxjs';
 import { map, catchError, debounceTime, take, switchMap } from 'rxjs/operators';
 
-import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class NewEmailValidator {
-  constructor(private authService: AuthService) {}
+  constructor(private userService: UserService) {}
 
   validate(): AsyncValidatorFn {
     return (control: AbstractControl) => {
@@ -19,7 +19,7 @@ export class NewEmailValidator {
         debounceTime(500),
         take(1),
         switchMap((_) =>
-          this.authService.doesEmailExist(control.value).pipe(
+          this.userService.doesEmailExist(control.value).pipe(
             map((doesExist) => (doesExist ? { doesExist: true } : null)),
             catchError(() => of(null))
           )

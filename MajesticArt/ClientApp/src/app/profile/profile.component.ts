@@ -15,6 +15,7 @@ import { Order } from '../models/order.model';
 import { EditAddressDialogComponent } from './edit-address-dialog/edit-address-dialog.component';
 import { Address } from '../models/address.model';
 import { OrderProductsDialogComponent } from '../admin/orders/order-products-dialog/order-products-dialog.component';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -37,6 +38,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
+    private userService: UserService,
     private snackBarService: SnackBarService,
     private orderService: OrderService
   ) {}
@@ -62,7 +64,7 @@ export class ProfileComponent implements OnInit {
           email: this.authService.currentUserValue.email,
           newEmail: result,
         };
-        this.authService.updateEmail(updateEmail).subscribe(
+        this.userService.updateEmail(updateEmail).subscribe(
           () => {
             this.authService.logout();
             this.snackBarService.open(
@@ -86,7 +88,7 @@ export class ProfileComponent implements OnInit {
           password: result.password,
           newPassword: result.newPassword,
         };
-        this.authService.updatePassword(updatePassword).subscribe(
+        this.userService.updatePassword(updatePassword).subscribe(
           () => {
             this.authService.logout();
             this.snackBarService.open(
@@ -107,7 +109,7 @@ export class ProfileComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result: Address) => {
       if (result) {
-        this.authService.updateAddress(result).subscribe(() => {
+        this.userService.updateAddress(result).subscribe(() => {
           this.snackBarService.open('Address updated successfully');
         });
       }
