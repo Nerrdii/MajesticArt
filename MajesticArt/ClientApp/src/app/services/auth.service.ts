@@ -24,6 +24,10 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  public set currentUserValue(user: User) {
+    this.currentUserSubject.next(user);
+  }
+
   register(values: {
     email: string;
     password: string;

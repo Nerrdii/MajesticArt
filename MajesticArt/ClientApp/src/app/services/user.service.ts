@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UpdateEmail } from '../models/update-email.model';
-import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
+import { UpdateEmail } from '../models/update-email.model';
 import { UpdatePassword } from '../models/update-password.model';
 import { User } from '../models/user.model';
 import { Address } from '../models/address.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   updateEmail(updateEmail: UpdateEmail) {
-    return this.http.put('/api/auth/email', updateEmail).pipe(
+    return this.http.put('/api/users/email', updateEmail).pipe(
       catchError((err) => {
         return throwError(err);
       })
@@ -24,27 +25,27 @@ export class UserService {
 
   updatePassword(updatePassword: UpdatePassword) {
     return this.http
-      .put('/api/auth/password', updatePassword)
+      .put('/api/users/password', updatePassword)
       .pipe(catchError((err) => throwError(err)));
   }
 
   updateAddress(address: Address) {
-    return this.http.put('/api/auth/address', address).pipe(
+    return this.http.put('/api/users/address', address).pipe(
       tap(() => {
         const user: User = JSON.parse(localStorage.getItem('currentUser'));
         user.address = address;
         localStorage.setItem('currentUser', JSON.stringify(user));
-        // TODO: this.currentUserSubject.next(user);
+        this.authService.currentUserValue = user;
       }),
       catchError((err) => throwError(err))
     );
   }
 
   isCurrentPasswordCorrect(password: string) {
-    return this.http.get<boolean>(`/api/auth/password?password=${password}`);
+    return this.http.get<boolean>(`/api/users/password?password=${password}`);
   }
 
   doesEmailExist(email: string) {
-    return this.http.get<boolean>(`/api/auth/email?email=${email}`);
+    return this.http.get<boolean>(`/api/users/email?email=${email}`);
   }
 }
