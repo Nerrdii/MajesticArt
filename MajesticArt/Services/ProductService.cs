@@ -1,8 +1,9 @@
 ﻿using MajesticArt.Data;
-using MajesticArt.Models;
+using MajesticArt.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MajesticArt.Core.Services;
 
 namespace MajesticArt.Services
 {

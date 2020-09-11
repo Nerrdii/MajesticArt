@@ -1,4 +1,5 @@
 ﻿using MailKit.Net.Smtp;
+using MajesticArt.Core.Services;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 

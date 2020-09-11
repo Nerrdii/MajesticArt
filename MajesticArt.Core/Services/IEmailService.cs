@@ -1,4 +1,4 @@
-﻿namespace MajesticArt.Services
+﻿namespace MajesticArt.Core.Services
 {
     public interface IEmailService
     {

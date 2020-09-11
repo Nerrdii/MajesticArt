@@ -1,7 +1,7 @@
-﻿using MajesticArt.Models;
+﻿using MajesticArt.Core.Models;
 using System.Collections.Generic;
 
-namespace MajesticArt.Services
+namespace MajesticArt.Core.Services
 {
     public interface ICostDetailsService
     {

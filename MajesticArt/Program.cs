@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 using MajesticArt.Data;
-using MajesticArt.Models;
+using MajesticArt.Core.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;

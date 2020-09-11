@@ -1,8 +1,8 @@
-﻿using MajesticArt.Models;
+﻿using MajesticArt.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MajesticArt.Services
+namespace MajesticArt.Core.Services
 {
     public interface IProductService
     {

@@ -1,4 +1,4 @@
-﻿using MajesticArt.Models;
+﻿using MajesticArt.Core.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace MajesticArt.Data

@@ -1,4 +1,5 @@
-﻿using MajesticArt.Models;
+﻿using MajesticArt.Core.Models;
+using MajesticArt.Core.Services;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 

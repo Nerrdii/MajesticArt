@@ -1,10 +1,10 @@
 ﻿using MajesticArt.Data;
-using MajesticArt.Models;
+using MajesticArt.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MajesticArt.Core.Services;
 
 namespace MajesticArt.Services
 {

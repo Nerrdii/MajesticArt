@@ -1,4 +1,4 @@
-﻿namespace MajesticArt.Models
+﻿namespace MajesticArt.Core.Models
 {
     public class Product
     {

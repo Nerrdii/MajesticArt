@@ -1,10 +1,8 @@
-﻿using MajesticArt.Models;
-using System;
+﻿using MajesticArt.Core.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace MajesticArt.Services
+namespace MajesticArt.Core.Services
 {
     public interface IOrderService
     {

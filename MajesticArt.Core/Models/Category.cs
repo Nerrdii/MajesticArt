@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace MajesticArt.Models
+namespace MajesticArt.Core.Models
 {
     public class Category
     {

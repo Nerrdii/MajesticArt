@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using MajesticArt.Data;
-using MajesticArt.Models;
+using MajesticArt.Core.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Reflection;
 using System.IO;
 using Microsoft.OpenApi.Models;
+using MajesticArt.Core.Services;
 
 namespace MajesticArt
 {

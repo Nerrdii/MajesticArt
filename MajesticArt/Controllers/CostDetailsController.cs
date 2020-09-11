@@ -1,5 +1,5 @@
-﻿using MajesticArt.Models;
-using MajesticArt.Services;
+﻿using MajesticArt.Core.Models;
+using MajesticArt.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;

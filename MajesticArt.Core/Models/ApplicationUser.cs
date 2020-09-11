@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace MajesticArt.Models
+namespace MajesticArt.Core.Models
 {
     public class ApplicationUser : IdentityUser
     {
