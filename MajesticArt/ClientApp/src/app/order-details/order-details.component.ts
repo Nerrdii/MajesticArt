@@ -4,8 +4,8 @@ import { Order } from '../models/order.model';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { OrderService } from '../admin/orders/order.service';
-import { TaxService } from '../services/tax.service';
-import { TotalCost } from '../models/total-cost.model';
+import { CostDetailsService } from '../services/cost-details.service';
+import { TotalCost } from '../models/cost-details.model';
 
 @Component({
   selector: 'app-order-details',
@@ -19,7 +19,7 @@ export class OrderDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private orderService: OrderService,
-    private taxService: TaxService
+    private costDetailsService: CostDetailsService
   ) {}
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class OrderDetailsComponent implements OnInit {
           .map((product) => product.id)
           .join(',')
           .toString();
-        this.totalCost$ = this.taxService.getTotalCostDetails(productIds);
+        this.totalCost$ = this.costDetailsService.getCostDetails(productIds);
       })
     );
   }

@@ -1,22 +1,19 @@
 ﻿using MajesticArt.Models;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MajesticArt.Services
 {
-    public class TaxService : ITaxService
+    public class CostDetailsService : ICostDetailsService
     {
         private readonly IConfiguration configuration;
 
-        public TaxService(IConfiguration configuration)
+        public CostDetailsService(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
 
-        public TotalCostDto GetTotalCostDetails(List<Product> products)
+        public CostDetailsDto GetCostDetails(List<Product> products)
         {
             decimal taxRate = decimal.Parse(configuration["Business:TaxRate"]) / 100;
             decimal shippingRate = decimal.Parse(configuration["Business:ShippingRate"]);
@@ -35,15 +32,13 @@ namespace MajesticArt.Services
             decimal totalWithShipping = totalBeforeShipping + shippingRate;
             decimal total = isFreeShipping ? totalBeforeShipping : totalWithShipping;
 
-            var totalCostDto = new TotalCostDto
+            return new CostDetailsDto
             {
                 Subtotal = subtotal,
                 Tax = tax,
                 Shipping = isFreeShipping ? 0 : shippingRate,
                 Total = total
             };
-
-            return totalCostDto;
         }
     }
 }

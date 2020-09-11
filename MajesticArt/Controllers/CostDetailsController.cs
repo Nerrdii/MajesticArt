@@ -1,8 +1,6 @@
 ﻿using MajesticArt.Models;
 using MajesticArt.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,23 +8,24 @@ namespace MajesticArt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
-    public class TaxController : ControllerBase
+    public class CostDetailsController : ControllerBase
     {
-        private readonly IConfiguration configuration;
-        private readonly ITaxService taxService;
+        private readonly ICostDetailsService costDetailsService;
         private readonly IProductService productService;
 
-        public TaxController(IConfiguration configuration, ITaxService taxService, IProductService productService)
+        public CostDetailsController(ICostDetailsService costDetailsService, IProductService productService)
         {
-            this.configuration = configuration;
-            this.taxService = taxService;
+            this.costDetailsService = costDetailsService;
             this.productService = productService;
         }
 
+        /// <summary>
+        /// Get cost details (tax, shipping rate, etc.) for a list of products
+        /// </summary>
+        /// <param name="productIds"></param>
+        /// <returns></returns>
         [HttpGet]
-        [Route("total")]
-        public async Task<IActionResult> GetTotal([FromQuery] string productIds)
+        public async Task<IActionResult> GetCostDetails([FromQuery] string productIds)
         {
             List<Product> products = new List<Product>();
             string[] ids = productIds.Split(',');
@@ -37,7 +36,7 @@ namespace MajesticArt.Controllers
                 products.Add(product);
             }
 
-            var totalCostDto = taxService.GetTotalCostDetails(products);
+            var totalCostDto = costDetailsService.GetCostDetails(products);
 
             return Ok(totalCostDto);
         }

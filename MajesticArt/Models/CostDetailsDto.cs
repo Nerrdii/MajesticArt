@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MajesticArt.Models
 {
-    public class TotalCostDto
+    public class CostDetailsDto
     {
         public decimal Subtotal { get; set; }
         public decimal Shipping { get; set; }

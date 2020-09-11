@@ -6,8 +6,6 @@ import { Order, OrderStatus } from 'src/app/models/order.model';
 import { OrderProductsDialogComponent } from './order-products-dialog/order-products-dialog.component';
 import { UpdateOrderDialogComponent } from './update-order-dialog/update-order-dialog.component';
 import { CustomerDetailsDialogComponent } from './customer-details-dialog/customer-details-dialog.component';
-import { TaxService } from 'src/app/services/tax.service';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-orders',
@@ -29,11 +27,7 @@ export class OrdersComponent implements OnInit {
   public data: Order[] = [];
   public isLoading = true;
 
-  constructor(
-    private dialog: MatDialog,
-    private orderService: OrderService,
-    private taxService: TaxService
-  ) {}
+  constructor(private dialog: MatDialog, private orderService: OrderService) {}
 
   ngOnInit() {
     this.orderService.getAll().subscribe((orders) => {

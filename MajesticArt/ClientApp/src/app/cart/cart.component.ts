@@ -5,8 +5,8 @@ import { tap } from 'rxjs/operators';
 import { Product } from '../models/product.model';
 import { CartService } from '../services/cart.service';
 import { AuthService } from '../services/auth.service';
-import { TaxService } from '../services/tax.service';
-import { TotalCost } from '../models/total-cost.model';
+import { CostDetailsService } from '../services/cost-details.service';
+import { TotalCost } from '../models/cost-details.model';
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +21,7 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private authService: AuthService,
-    private taxService: TaxService
+    private costDetailsService: CostDetailsService
   ) {}
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class CartComponent implements OnInit {
           .map((product) => product.id)
           .join(',')
           .toString();
-        this.totalCost$ = this.taxService.getTotalCostDetails(productIds);
+        this.totalCost$ = this.costDetailsService.getCostDetails(productIds);
       })
     );
   }
