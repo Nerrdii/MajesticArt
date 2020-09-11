@@ -41,6 +41,7 @@ namespace MajesticArt
             services.AddScoped<IEmailService, GoogleEmailService>();
             services.AddScoped<ICostDetailsService, CostDetailsService>();
             services.AddScoped<IStripeService, StripeService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.Password.RequiredLength = 8)
                 .AddRoles<IdentityRole>()

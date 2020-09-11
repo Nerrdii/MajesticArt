@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using MajesticArt.Core.Models;
+using MajesticArt.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 
 namespace MajesticArt.Controllers
 {
@@ -19,18 +13,18 @@ namespace MajesticArt.Controllers
     [Authorize]
     public class AuthController : ControllerBase
     {
-        private readonly IConfiguration configuration;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IAuthService authService;
 
         public AuthController(
-            IConfiguration configuration,
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IAuthService authService)
         {
-            this.configuration = configuration;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.authService = authService;
         }
 
         /// <summary>
@@ -63,7 +57,7 @@ namespace MajesticArt.Controllers
             {
                 await userManager.AddToRoleAsync(user, "User");
                 var roles = await userManager.GetRolesAsync(user);
-                ClaimsIdentity identity = await GetClaimsIdentity(user);
+                ClaimsIdentity identity = await authService.GetClaimsIdentity(user);
                 var loginResponseDto = new LoginResponseDto
                 {
                     FirstName = user.FirstName,
@@ -72,7 +66,7 @@ namespace MajesticArt.Controllers
                     Email = user.Email,
                     Roles = roles,
                     Address = user.Address,
-                    Token = GenerateToken(identity)
+                    Token = authService.GenerateToken(identity)
                 };
                 return Ok(loginResponseDto);
             }
@@ -97,7 +91,7 @@ namespace MajesticArt.Controllers
 
             var result = await signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-            ClaimsIdentity identity = await GetClaimsIdentity(user);
+            ClaimsIdentity identity = await authService.GetClaimsIdentity(user);
 
             if (result.Succeeded)
             {
@@ -110,46 +104,12 @@ namespace MajesticArt.Controllers
                     Email = user.Email,
                     Roles = roles,
                     Address = user.Address,
-                    Token = GenerateToken(identity)
+                    Token = authService.GenerateToken(identity)
                 };
                 return Ok(loginResponseDto);
             }
 
             return BadRequest("Invalid username or password");
-        }
-
-        private async Task<ClaimsIdentity> GetClaimsIdentity(ApplicationUser user)
-        {
-            var roles = await userManager.GetRolesAsync(user);
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email)
-            };
-            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
-
-            return new ClaimsIdentity(claims, "Token");
-        }
-
-        private string GenerateToken(ClaimsIdentity identity)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:SecretKey"]));
-            var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var jwt = new JwtSecurityToken(
-                issuer: configuration["JWT:Issuer"],
-                audience: configuration["JWT:Audience"],
-                claims: identity.Claims,
-                notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.Add(TimeSpan.FromDays(1)),
-                signingCredentials);
-
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-            return encodedJwt;
         }
     }
 }
