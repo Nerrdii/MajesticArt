@@ -20,6 +20,10 @@ namespace MajesticArt.Controllers
             this.categoryService = categoryService;
         }
 
+        /// <summary>
+        /// Get all products
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetAll()
@@ -28,6 +32,11 @@ namespace MajesticArt.Controllers
             return Ok(products);
         }
 
+        /// <summary>
+        /// Get a single product by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
@@ -42,6 +51,11 @@ namespace MajesticArt.Controllers
             return Ok(product);
         }
 
+        /// <summary>
+        /// Add a new product
+        /// </summary>
+        /// <param name="productDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]ProductDto productDto)
         {
@@ -60,6 +74,11 @@ namespace MajesticArt.Controllers
             return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
         }
 
+        /// <summary>
+        /// Update an existing product
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<IActionResult> Update([FromBody]Product product)
         {
@@ -68,6 +87,11 @@ namespace MajesticArt.Controllers
             return Ok(product);
         }
 
+        /// <summary>
+        /// Delete a product by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

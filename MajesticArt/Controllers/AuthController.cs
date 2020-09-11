@@ -33,6 +33,11 @@ namespace MajesticArt.Controllers
             this.signInManager = signInManager;
         }
 
+        /// <summary>
+        /// Registers a new user
+        /// </summary>
+        /// <param name="registerDto"></param>
+        /// <returns></returns>
         [HttpPost("register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
@@ -75,6 +80,11 @@ namespace MajesticArt.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Logs in an existing user
+        /// </summary>
+        /// <param name="loginDto"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)

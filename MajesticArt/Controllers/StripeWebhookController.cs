@@ -40,6 +40,10 @@ namespace MajesticArt.Controllers
             this.userManager = userManager;
         }
 
+        /// <summary>
+        /// Listen for Stripe webhook events
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Index()
         {

@@ -24,6 +24,10 @@ namespace MajesticArt.Controllers
             this.emailService = emailService;
         }
 
+        /// <summary>
+        /// Get all orders
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
@@ -32,6 +36,11 @@ namespace MajesticArt.Controllers
             return Ok(orders);
         }
 
+        /// <summary>
+        /// Get a single order by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
         [Authorize]
@@ -54,6 +63,10 @@ namespace MajesticArt.Controllers
             return Ok(order);
         }
 
+        /// <summary>
+        /// Get orders for the current user
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("user")]
         [Authorize]
@@ -65,6 +78,11 @@ namespace MajesticArt.Controllers
             return Ok(orders);
         }
 
+        /// <summary>
+        /// Update an existing order
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         [HttpPut]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromBody] Order order)

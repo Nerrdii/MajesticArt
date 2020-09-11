@@ -23,6 +23,11 @@ namespace MajesticArt.Controllers
             this.userManager = userManager;
         }
 
+        /// <summary>
+        /// Updates the email for an existing user
+        /// </summary>
+        /// <param name="updateEmailDto"></param>
+        /// <returns></returns>
         [Route("email")]
         [HttpPut]
         public async Task<IActionResult> UpdateEmail(UpdateEmailDto updateEmailDto)
@@ -60,6 +65,11 @@ namespace MajesticArt.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Updates the password for an existing user
+        /// </summary>
+        /// <param name="updatePasswordDto"></param>
+        /// <returns></returns>
         [Route("password")]
         [HttpPut]
         public async Task<IActionResult> UpdatePassword(UpdatePasswordDto updatePasswordDto)
@@ -87,6 +97,11 @@ namespace MajesticArt.Controllers
             return BadRequest("Current password incorrect");
         }
 
+        /// <summary>
+        /// Updates the address for an existing user
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
         [Route("address")]
         [HttpPut]
         public async Task<IActionResult> UpdateAddress(Address address)
@@ -106,6 +121,11 @@ namespace MajesticArt.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Checks whether the given password is correct for the current user
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [Route("password")]
         [HttpGet]
         public async Task<bool> CheckPassword([FromQuery] string password)
@@ -117,6 +137,11 @@ namespace MajesticArt.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Checks whether a user exists with the given user
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         [Route("email")]
         [HttpGet]
         [AllowAnonymous]
