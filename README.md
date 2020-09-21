@@ -40,24 +40,7 @@ Majestic Art is a full-stack eCommerce application for selling unique pieces of 
 ### User Secrets
 
 1. In Visual Studio 2019 right-click on the project and select "Manage User Secrets"
-2. Replace the contents with the following, putting in your values for Stripe, Gmail, etc.
-
-```json
-{
-  "JWT": {
-    "SecretKey": "<SecretKey>"
-  },
-  "Stripe": {
-    "PublishableKey": "<PublishableKey>",
-    "SecretKey": "<SecretKey>",
-    "WebhookSecret": "<WebhookSecret>"
-  },
-  "Gmail": {
-    "Username": "<Username>",
-    "Password": "<Password>"
-  }
-}
-```
+2. Replace the contents using the structure in `sample-secrets.json`, putting in your values for Stripe, Gmail, etc.
 
 ### Server
 
@@ -78,3 +61,7 @@ The first time it runs it will seed the database with the following user data yo
 - User account: will.smith@gmail.com, Passwd@1
 
 Once started it will automatically open the application in the browser.
+
+## Documentation
+
+API documentation is available for this project on the `/swagger` endpoint after starting the application.
