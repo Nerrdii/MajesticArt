@@ -82,7 +82,8 @@ namespace MajesticArt.Controllers
                 var price = priceService.Get(item.PriceId, priceOptions);
                 userId = price.Product.Metadata["UserId"];
                 return price.Product.Metadata["AppId"];
-            }));
+            // Filter out shipping line item if it was included
+            }).Where(item => !item.Equals("-1")));
 
             await AddOrder(productIds, userId);
         }
