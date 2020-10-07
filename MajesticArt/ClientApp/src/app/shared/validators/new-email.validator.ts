@@ -3,10 +3,10 @@ import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { of } from 'rxjs';
 import { map, catchError, debounceTime, take, switchMap } from 'rxjs/operators';
 
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Injectable({ providedIn: 'root' })
-export class CurrentPasswordValidator {
+export class NewEmailValidator {
   constructor(private userService: UserService) {}
 
   validate(): AsyncValidatorFn {
@@ -19,8 +19,8 @@ export class CurrentPasswordValidator {
         debounceTime(500),
         take(1),
         switchMap((_) =>
-          this.userService.isCurrentPasswordCorrect(control.value).pipe(
-            map((isCorrect) => (!isCorrect ? { notCurrent: true } : null)),
+          this.userService.doesEmailExist(control.value).pipe(
+            map((doesExist) => (doesExist ? { doesExist: true } : null)),
             catchError(() => of(null))
           )
         )

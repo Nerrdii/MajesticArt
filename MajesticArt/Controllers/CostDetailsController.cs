@@ -36,9 +36,9 @@ namespace MajesticArt.Controllers
                 products.Add(product);
             }
 
-            var totalCostDto = costDetailsService.GetCostDetails(products);
+            var costDetailsDto = costDetailsService.GetCostDetails(products);
 
-            return Ok(totalCostDto);
+            return Ok(costDetailsDto);
         }
     }
 }

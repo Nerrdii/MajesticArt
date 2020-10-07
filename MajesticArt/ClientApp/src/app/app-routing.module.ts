@@ -9,8 +9,8 @@ import { RegisterComponent } from './register/register.component';
 import { SuccessComponent } from './success/success.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
-import { AuthGuard } from './guards/auth.guard';
-import { LoginAuthGuard } from './guards/login-auth.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { LoginAuthGuard } from './shared/guards/login-auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },

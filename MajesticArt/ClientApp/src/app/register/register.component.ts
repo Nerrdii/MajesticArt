@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
-import { NewEmailValidator } from '../validators/new-email.validator';
+import { NewEmailValidator } from '../shared/validators/new-email.validator';
 
 @Component({
   selector: 'app-register',

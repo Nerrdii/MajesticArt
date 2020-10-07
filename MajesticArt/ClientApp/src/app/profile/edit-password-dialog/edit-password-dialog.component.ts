@@ -7,7 +7,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { CurrentPasswordValidator } from 'src/app/validators/current-password.validator';
+import { CurrentPasswordValidator } from 'src/app/shared/validators/current-password.validator';
 
 export const confirmPasswordValidator: ValidatorFn = (
   control: FormGroup
