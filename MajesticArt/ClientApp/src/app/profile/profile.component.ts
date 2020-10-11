@@ -96,7 +96,7 @@ export class ProfileComponent implements OnInit {
             );
           },
           (err) => {
-            this.snackBarService.open(err.error, null, 3000);
+            this.snackBarService.open(err.error);
           }
         );
       }
