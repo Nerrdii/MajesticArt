@@ -23,7 +23,6 @@
     "@angular/platform-browser-dynamic": "11.2.14",
     "@angular/platform-server": "11.2.14",
     "@angular/router": "11.2.14",
-    "@nguniversal/module-map-ngfactory-loader": "8.1.1",
     "@stripe/stripe-js": "^1.8.0",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.3.1",
