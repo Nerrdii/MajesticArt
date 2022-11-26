@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-email-dialog',
@@ -8,9 +8,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./edit-email-dialog.component.css'],
 })
 export class EditEmailDialogComponent implements OnInit {
-  form = new FormGroup({
-    currentEmail: new FormControl({ value: '', disabled: true }),
-    newEmail: new FormControl('', [Validators.required, Validators.email]),
+  form = new UntypedFormGroup({
+    currentEmail: new UntypedFormControl({ value: '', disabled: true }),
+    newEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
   });
   currentEmail = this.form.get('currentEmail');
   newEmail = this.form.get('newEmail');

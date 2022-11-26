@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormGroup,
-  FormControl,
+  UntypedFormGroup,
+  UntypedFormControl,
   Validators,
   ValidatorFn,
   ValidationErrors,
@@ -10,7 +10,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { CurrentPasswordValidator } from 'src/app/shared/validators/current-password.validator';
 
 export const confirmPasswordValidator: ValidatorFn = (
-  control: FormGroup
+  control: UntypedFormGroup
 ): ValidationErrors | null => {
   const newPassword = control.get('newPassword');
   const confirmPassword = control.get('confirmPassword');
@@ -28,20 +28,20 @@ export const confirmPasswordValidator: ValidatorFn = (
   styleUrls: ['./edit-password-dialog.component.css'],
 })
 export class EditPasswordDialogComponent implements OnInit {
-  form = new FormGroup(
+  form = new UntypedFormGroup(
     {
-      currentPassword: new FormControl(
+      currentPassword: new UntypedFormControl(
         '',
         [Validators.required],
         [this.currentPasswordValidator.validate()]
       ),
-      newPassword: new FormControl('', [
+      newPassword: new UntypedFormControl('', [
         Validators.required,
         Validators.pattern(
           /^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/
         ),
       ]),
-      confirmPassword: new FormControl('', [Validators.required]),
+      confirmPassword: new UntypedFormControl('', [Validators.required]),
     },
     { validators: confirmPasswordValidator }
   );

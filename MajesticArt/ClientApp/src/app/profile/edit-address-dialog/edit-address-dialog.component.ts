@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Address } from 'src/app/models/address.model';
@@ -10,15 +10,15 @@ import { Address } from 'src/app/models/address.model';
   styleUrls: ['./edit-address-dialog.component.css'],
 })
 export class EditAddressDialogComponent implements OnInit {
-  form = new FormGroup({
-    line1: new FormControl(this.data.line1, Validators.required),
-    line2: new FormControl(this.data.line2),
-    city: new FormControl(this.data.city, Validators.required),
-    state: new FormControl(this.data.state, [
+  form = new UntypedFormGroup({
+    line1: new UntypedFormControl(this.data.line1, Validators.required),
+    line2: new UntypedFormControl(this.data.line2),
+    city: new UntypedFormControl(this.data.city, Validators.required),
+    state: new UntypedFormControl(this.data.state, [
       Validators.required,
       Validators.maxLength(2),
     ]),
-    zipCode: new FormControl(this.data.zipCode, [
+    zipCode: new UntypedFormControl(this.data.zipCode, [
       Validators.required,
       Validators.maxLength(5),
     ]),

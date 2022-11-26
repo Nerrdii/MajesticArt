@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
@@ -12,27 +12,27 @@ import { NewEmailValidator } from '../shared/validators/new-email.validator';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  registerForm = new FormGroup({
-    email: new FormControl(
+  registerForm = new UntypedFormGroup({
+    email: new UntypedFormControl(
       '',
       [Validators.required, Validators.email],
       [this.newEmailValidator.validate()]
     ),
-    password: new FormControl('', [
+    password: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/),
     ]),
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
-    address: new FormGroup({
-      line1: new FormControl('', Validators.required),
-      line2: new FormControl(''),
-      city: new FormControl('', Validators.required),
-      state: new FormControl('', [
+    firstName: new UntypedFormControl('', [Validators.required]),
+    lastName: new UntypedFormControl('', [Validators.required]),
+    address: new UntypedFormGroup({
+      line1: new UntypedFormControl('', Validators.required),
+      line2: new UntypedFormControl(''),
+      city: new UntypedFormControl('', Validators.required),
+      state: new UntypedFormControl('', [
         Validators.required,
         Validators.maxLength(2),
       ]),
-      zipCode: new FormControl('', [
+      zipCode: new UntypedFormControl('', [
         Validators.required,
         Validators.maxLength(5),
       ]),

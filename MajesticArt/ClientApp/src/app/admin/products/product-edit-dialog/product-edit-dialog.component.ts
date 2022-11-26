@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Product } from 'src/app/models/product.model';
@@ -12,12 +12,12 @@ import { Category } from 'src/app/models/category.model';
   styleUrls: ['./product-edit-dialog.component.css'],
 })
 export class ProductEditDialogComponent implements OnInit {
-  productForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
-    image: new FormControl(''),
-    price: new FormControl('', [Validators.required, Validators.min(1)]),
-    category: new FormControl(''),
+  productForm = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    description: new UntypedFormControl('', [Validators.required]),
+    image: new UntypedFormControl(''),
+    price: new UntypedFormControl('', [Validators.required, Validators.min(1)]),
+    category: new UntypedFormControl(''),
   });
   name = this.productForm.get('name');
   description = this.productForm.get('description');
