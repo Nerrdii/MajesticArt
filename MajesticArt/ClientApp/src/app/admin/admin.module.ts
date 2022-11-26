@@ -33,37 +33,27 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    CategoriesComponent,
-    EditDialogComponent,
-    DeleteDialogComponent,
-    ProductsComponent,
-    ProductEditDialogComponent,
-    ProductDeleteDialogComponent,
-    ProductImageDialogComponent,
-    OrdersComponent,
-    OrderProductsDialogComponent,
-    UpdateOrderDialogComponent,
-    CustomerDetailsDialogComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(routes),
-    MaterialModule,
-  ],
-  entryComponents: [
-    EditDialogComponent,
-    DeleteDialogComponent,
-    ProductEditDialogComponent,
-    ProductDeleteDialogComponent,
-    ProductImageDialogComponent,
-    OrderProductsDialogComponent,
-    UpdateOrderDialogComponent,
-    CustomerDetailsDialogComponent,
-  ],
-  providers: [AdminAuthGuard],
+    declarations: [
+        DashboardComponent,
+        CategoriesComponent,
+        EditDialogComponent,
+        DeleteDialogComponent,
+        ProductsComponent,
+        ProductEditDialogComponent,
+        ProductDeleteDialogComponent,
+        ProductImageDialogComponent,
+        OrdersComponent,
+        OrderProductsDialogComponent,
+        UpdateOrderDialogComponent,
+        CustomerDetailsDialogComponent,
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(routes),
+        MaterialModule,
+    ],
+    providers: [AdminAuthGuard]
 })
 export class AdminModule {}

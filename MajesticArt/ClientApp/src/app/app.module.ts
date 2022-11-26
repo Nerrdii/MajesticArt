@@ -25,40 +25,35 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    StoreComponent,
-    LoginComponent,
-    ProfileComponent,
-    EditEmailDialogComponent,
-    EditPasswordDialogComponent,
-    RegisterComponent,
-    SuccessComponent,
-    CartComponent,
-    EditAddressDialogComponent,
-    OrderDetailsComponent,
-    HomeComponent,
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    BrowserAnimationsModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    MaterialModule,
-    AdminModule,
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
-  entryComponents: [
-    EditEmailDialogComponent,
-    EditPasswordDialogComponent,
-    EditAddressDialogComponent,
-  ],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        NavMenuComponent,
+        StoreComponent,
+        LoginComponent,
+        ProfileComponent,
+        EditEmailDialogComponent,
+        EditPasswordDialogComponent,
+        RegisterComponent,
+        SuccessComponent,
+        CartComponent,
+        EditAddressDialogComponent,
+        OrderDetailsComponent,
+        HomeComponent,
+    ],
+    imports: [
+        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+        BrowserAnimationsModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        MaterialModule,
+        AdminModule,
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}
