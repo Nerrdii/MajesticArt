@@ -73,13 +73,13 @@ namespace MajesticArt.Controllers
         {
             var service = new SessionService();
             var priceService = new Stripe.PriceService();
-            var priceOptions = new Stripe.PriceGetOptions { Expand = new List<string> { "product" } };
+            var priceOptions = new Stripe.PriceGetOptions { Expand = ["product"] };
             Stripe.StripeList<Stripe.LineItem> lineItems = service.ListLineItems(session.Id);
             var productIds = new List<string>();
             var userId = "";
 
             productIds.AddRange(lineItems.Select(item => {
-                var price = priceService.Get(item.PriceId, priceOptions);
+                var price = priceService.Get(item.Price.Id, priceOptions);
                 userId = price.Product.Metadata["UserId"];
                 return price.Product.Metadata["AppId"];
             // Filter out shipping line item if it was included

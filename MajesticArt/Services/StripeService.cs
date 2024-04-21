@@ -26,10 +26,10 @@ namespace MajesticArt.Services
             {
                 lineItems.Add(new SessionLineItemOptions
                 {
-                    PriceData = new Stripe.SessionLineItemPriceDataOptions
+                    PriceData = new SessionLineItemPriceDataOptions
                     {
                         Currency = "usd",
-                        ProductData = new Stripe.SessionLineItemPriceDataProductDataOptions
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
                             Name = product.Name,
                             Description = product.Description,
@@ -64,10 +64,10 @@ namespace MajesticArt.Services
             {
                 lineItems.Add(new SessionLineItemOptions
                 {
-                    PriceData = new Stripe.SessionLineItemPriceDataOptions
+                    PriceData = new SessionLineItemPriceDataOptions
                     {
                         Currency = "usd",
-                        ProductData = new Stripe.SessionLineItemPriceDataProductDataOptions
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
                             Name = "Shipping",
                             Description = "Shipping",
