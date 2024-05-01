@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
-  Router,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { SnackBarService } from '../../services/snack-bar.service';
@@ -13,7 +7,7 @@ import { SnackBarService } from '../../services/snack-bar.service';
 @Injectable({
   providedIn: 'root',
 })
-export class LoginAuthGuard implements CanActivate {
+export class LoginAuthGuard  {
   constructor(
     private router: Router,
     private authService: AuthService,
