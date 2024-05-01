@@ -14,7 +14,7 @@
   </div>
   <div class="row">
     <div *ngFor="let product of items | async" class="col-4">
-      <mat-card class="mb-5">
+      <mat-card appearance="outlined" class="mb-5">
         <mat-card-header>
           <mat-card-title>{{ product.name }}</mat-card-title>
           <mat-card-subtitle>{{ product.price | currency }}</mat-card-subtitle>

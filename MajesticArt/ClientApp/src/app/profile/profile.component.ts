@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { User } from '../models/user.model';
 import { map } from 'rxjs/operators';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { EditEmailDialogComponent } from './edit-email-dialog/edit-email-dialog.component';
 import { UpdateEmail } from '../models/update-email.model';
 import { SnackBarService } from '../services/snack-bar.service';

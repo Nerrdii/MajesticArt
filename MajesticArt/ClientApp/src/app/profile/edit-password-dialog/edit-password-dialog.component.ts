@@ -6,7 +6,7 @@ import {
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { CurrentPasswordValidator } from 'src/app/shared/validators/current-password.validator';
 
 export const confirmPasswordValidator: ValidatorFn = (

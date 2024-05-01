@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>View Products</h1>
 <div mat-dialog-content>
   <div *ngFor="let product of data">
-    <mat-card class="mb-5">
+    <mat-card appearance="outlined" class="mb-5">
       <mat-card-header>
         <mat-card-title>{{ product.name }}</mat-card-title>
         <mat-card-subtitle>{{ product.price | currency }}</mat-card-subtitle>
